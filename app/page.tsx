@@ -1,6 +1,8 @@
 import { Arrival } from "@/components/home/Arrival";
 import { HeroSection } from "@/components/home/HeroSection";
 import { NowSection } from "@/components/home/NowSection";
+import { OriginSection } from "@/components/home/OriginSection";
+import { JourneySection } from "@/components/home/JourneySection";
 
 export default function HomePage() {
   return (
@@ -11,6 +13,12 @@ export default function HomePage() {
 
         {/* 02 Now Section */}
         <NowSection />
+
+        {/* 03 Origin Section */}
+        <OriginSection />
+
+        {/* 04 Journey Section */}
+        <JourneySection />
       </main>
     </Arrival>
   );
