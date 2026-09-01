@@ -1,6 +1,6 @@
 import * as React from "react";
 import Link from "next/link";
-import { ArrowRight, Sparkles, BookOpen, Terminal, Layers } from "lucide-react";
+import { ArrowRight, BookOpen, Layers } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
 import { getProfile } from "@/lib/content";
 
