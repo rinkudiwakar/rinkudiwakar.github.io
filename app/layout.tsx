@@ -1,8 +1,21 @@
 import type { Metadata, Viewport } from "next";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import { constructMetadata } from "@/lib/seo/metadata";
 import { getPersonStructuredData } from "@/lib/seo/structured-data";
 import { SiteShell } from "@/components/layout/SiteShell";
 import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-body",
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+});
 
 export const metadata: Metadata = constructMetadata();
 
@@ -30,7 +43,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="font-body antialiased min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)] selection:bg-[var(--accent-subtle)] selection:text-[var(--accent)]">
+      <body className={`${inter.variable} ${jetbrainsMono.variable} font-body antialiased min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)] selection:bg-[var(--accent-subtle)] selection:text-[var(--accent)]`}>
         <a href="#main-content" className="skip-to-content">
           Skip to main content
         </a>

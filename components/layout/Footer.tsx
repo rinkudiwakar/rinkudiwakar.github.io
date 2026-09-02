@@ -41,7 +41,7 @@ export function Footer() {
         </div>
 
         {/* Navigation & Link Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-8 border-t border-[var(--border)]">
+        <nav aria-label="Footer navigation" className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-8 border-t border-[var(--border)]">
           {/* Column 1: Identity */}
           <div className="space-y-3">
             <div className="font-display font-bold text-base text-[var(--foreground)]">
@@ -154,7 +154,7 @@ export function Footer() {
               </li>
             </ul>
           </div>
-        </div>
+        </nav>
 
         {/* Bottom Metadata & Copyright */}
         <div className="pt-8 border-t border-[var(--border)] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[var(--foreground-subtle)]">
