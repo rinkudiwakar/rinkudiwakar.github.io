@@ -1,22 +1,21 @@
 "use client";
 
 import * as React from "react";
-import { motion, useReducedMotion } from "motion/react";
 
 export function Arrival({ children }: { children: React.ReactNode }) {
-  const shouldReduceMotion = useReducedMotion();
+  const [mounted, setMounted] = React.useState(false);
 
-  if (shouldReduceMotion) {
-    return <div>{children}</div>;
-  }
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+    <div
+      className={`transition-all duration-500 ease-out motion-reduce:transition-none motion-reduce:transform-none ${
+        mounted ? "opacity-100 translate-y-0" : "opacity-95 translate-y-1"
+      }`}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }

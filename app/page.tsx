@@ -10,6 +10,8 @@ import { PradrixSection } from "@/components/home/PradrixSection";
 import { BuildLogSection } from "@/components/home/BuildLogSection";
 import { SignalsSection } from "@/components/home/SignalsSection";
 import { ProofSection } from "@/components/home/ProofSection";
+import { FutureSection } from "@/components/home/FutureSection";
+import { EpilogueSection } from "@/components/home/EpilogueSection";
 
 export default function HomePage() {
   return (
@@ -47,6 +49,12 @@ export default function HomePage() {
 
         {/* 11 Proof, Not Promises */}
         <ProofSection />
+
+        {/* 12 Future Direction */}
+        <FutureSection />
+
+        {/* 13 Epilogue & Connection */}
+        <EpilogueSection />
       </main>
     </Arrival>
   );
