@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Menu, Terminal, Search } from "lucide-react";
 import { useThemeMode } from "@/context/ThemeModeContext";
 import { MobileNav } from "@/components/navigation/MobileNav";
@@ -11,8 +11,21 @@ import { cn } from "@/lib/utils/cn";
 
 export function Header() {
   const pathname = usePathname();
-  const { mode, toggleMode, setCommandPaletteOpen } = useThemeMode();
+  const router = useRouter();
+  const { mode, setMode, setCommandPaletteOpen } = useThemeMode();
   const [isMobileNavOpen, setMobileNavOpen] = React.useState(false);
+
+  const isDevModeActive = pathname === "/dev" || mode === "developer";
+
+  const handleDevClick = () => {
+    if (pathname === "/dev") {
+      setMode("normal");
+      router.push("/");
+    } else {
+      setMode("developer");
+      router.push("/dev");
+    }
+  };
 
   return (
     <>
@@ -73,27 +86,27 @@ export function Header() {
               <span className="hidden sm:inline">⌘K</span>
             </button>
 
-            {/* Developer Mode Toggle */}
+            {/* Developer Mode Toggle & Launcher */}
             <button
-              onClick={toggleMode}
+              onClick={handleDevClick}
               className={cn(
                 "flex items-center gap-1.5 px-2.5 py-1.5 rounded-[var(--radius-md)] border text-xs font-mono transition-all cursor-pointer",
-                mode === "developer"
+                isDevModeActive
                   ? "bg-[var(--accent-subtle)] text-[var(--accent)] border-[var(--accent-border)] font-semibold shadow-xs"
                   : "bg-[var(--background-subtle)] hover:bg-[var(--border)] text-[var(--foreground-muted)] hover:text-[var(--foreground)] border-[var(--border)]"
               )}
               aria-label={
-                mode === "developer"
+                isDevModeActive
                   ? "Switch to Normal Mode"
                   : "Switch to Developer Mode"
               }
               title={
-                mode === "developer"
-                  ? "Switch to Normal Mode"
-                  : "Switch to Developer Mode"
+                isDevModeActive
+                  ? "Exit to Normal Story Mode"
+                  : "Launch Developer Mode (macOS Terminal & IDE)"
               }
             >
-              <Terminal className="w-3.5 h-3.5" />
+              <Terminal className="w-3.5 h-3.5 text-[var(--accent)]" />
               <span className="font-semibold">DEV</span>
             </button>
 

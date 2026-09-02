@@ -171,13 +171,13 @@ describe("Developer Mode & Virtual Filesystem", () => {
       );
 
       // Click splash to skip immediately
-      const splash = screen.getByText("Click to skip");
+      const splash = screen.getByText(/Skip →/i);
       fireEvent.click(splash);
 
       expect(
-        screen.getByText(/Rinku Diwakar — Developer Workspace/i)
+        screen.getByText(/rinku@nitj — ~/i)
       ).toBeInTheDocument();
-      expect(screen.getByText("Virtual Workspace")).toBeInTheDocument();
+      expect(screen.getByText("Explorer")).toBeInTheDocument();
     });
   });
 });

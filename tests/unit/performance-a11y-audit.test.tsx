@@ -1,9 +1,17 @@
 import React from "react";
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { Header } from "@/components/navigation/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ThemeModeProvider } from "@/context/ThemeModeContext";
+
+// Mock next/navigation
+vi.mock("next/navigation", () => ({
+  usePathname: () => "/",
+  useRouter: () => ({
+    push: vi.fn(),
+  }),
+}));
 
 describe("Performance & Accessibility Full Audit", () => {
   it("renders Header with accessible navigation landmarks and button labels", () => {

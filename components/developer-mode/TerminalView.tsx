@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { Terminal as TerminalIcon, CornerDownLeft, Sparkles } from "lucide-react";
+import { Terminal as TerminalIcon, CornerDownLeft, Sparkles, Command } from "lucide-react";
 import {
   resolvePath,
   listDirectory,
@@ -42,17 +42,16 @@ export function TerminalView({
     {
       id: "welcome",
       result: (
-        <div className="space-y-2 py-2 text-xs font-mono">
-          <div className="text-[var(--accent)] font-bold flex items-center gap-2">
+        <div className="space-y-2 py-1 text-xs font-mono">
+          <div className="text-sky-400 font-bold flex items-center gap-2">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Rinku Diwakar — Developer Mode [VFS Terminal v1.0.0]</span>
           </div>
-          <div className="text-[var(--foreground-muted)]">
-            Type <span className="text-[var(--accent)] font-semibold">help</span> to
-            view available virtual commands, or click files in the tree.
+          <div className="text-zinc-400">
+            Type <span className="text-sky-400 font-semibold">help</span> or click quick pills below to explore virtual systems & beliefs.
           </div>
-          <div className="text-[var(--foreground-subtle)] text-[11px]">
-            Virtual filesystem mapped from verified portfolio facts. Tab completion & command history enabled.
+          <div className="text-zinc-500 text-[11px]">
+            Virtual filesystem safe sandbox. Tab completion & ↑↓ history enabled.
           </div>
         </div>
       ),
@@ -86,49 +85,49 @@ export function TerminalView({
     switch (cmd) {
       case "help": {
         outputNode = (
-          <div className="space-y-1.5 text-xs font-mono text-[var(--foreground-muted)]">
-            <div className="text-[var(--foreground)] font-bold mb-1">
+          <div className="space-y-1.5 text-xs font-mono text-zinc-300">
+            <div className="text-white font-bold mb-1">
               Available Virtual Commands:
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-[11px]">
               <div>
-                <span className="text-[var(--accent)] font-semibold">whoami</span> —
-                Display Rinku Diwakar identity
+                <span className="text-sky-400 font-semibold">whoami</span> —
+                Display Rinku Diwakar identity & background
               </div>
               <div>
-                <span className="text-[var(--accent)] font-semibold">ls [path]</span> —
+                <span className="text-sky-400 font-semibold">ls [path]</span> —
                 List virtual files/directories
               </div>
               <div>
-                <span className="text-[var(--accent)] font-semibold">cd &lt;path&gt;</span> —
+                <span className="text-sky-400 font-semibold">cd &lt;path&gt;</span> —
                 Change virtual directory
               </div>
               <div>
-                <span className="text-[var(--accent)] font-semibold">pwd</span> — Print
+                <span className="text-sky-400 font-semibold">pwd</span> — Print
                 working directory
               </div>
               <div>
-                <span className="text-[var(--accent)] font-semibold">cat &lt;file&gt;</span> —
+                <span className="text-sky-400 font-semibold">cat &lt;file&gt;</span> —
                 View file content
               </div>
               <div>
-                <span className="text-[var(--accent)] font-semibold">grep &lt;text&gt;</span> —
+                <span className="text-sky-400 font-semibold">grep &lt;text&gt;</span> —
                 Search across virtual files
               </div>
               <div>
-                <span className="text-[var(--accent)] font-semibold">open &lt;route&gt;</span> —
+                <span className="text-sky-400 font-semibold">open &lt;route&gt;</span> —
                 Navigate to page (pradrix, work, resume, contact)
               </div>
               <div>
-                <span className="text-[var(--accent)] font-semibold">history</span> —
+                <span className="text-sky-400 font-semibold">history</span> —
                 Show command history
               </div>
               <div>
-                <span className="text-[var(--accent)] font-semibold">clear</span> —
+                <span className="text-sky-400 font-semibold">clear</span> —
                 Clear terminal screen
               </div>
               <div>
-                <span className="text-[var(--accent)] font-semibold">exit</span> — Return
+                <span className="text-sky-400 font-semibold">exit</span> — Return
                 to Normal Story Mode
               </div>
             </div>
@@ -139,18 +138,18 @@ export function TerminalView({
 
       case "whoami": {
         outputNode = (
-          <div className="space-y-1.5 text-xs font-mono text-[var(--foreground)]">
-            <div className="font-bold text-[var(--accent)] text-sm">Rinku Diwakar</div>
-            <div className="text-[var(--foreground-muted)]">
+          <div className="space-y-1.5 text-xs font-mono text-zinc-200">
+            <div className="font-bold text-sky-400 text-sm">Rinku Diwakar</div>
+            <div className="text-zinc-400">
               Builder working across software, applied AI, data, and products.
             </div>
-            <div className="text-[var(--foreground-subtle)] text-[11px]">
+            <div className="text-zinc-500 text-[11px]">
               Education: B.Tech in Electrical Engineering, NIT Jalandhar (2023 – 2027, CGPA: 7.44)
             </div>
-            <div className="text-[var(--foreground-subtle)] text-[11px]">
+            <div className="text-zinc-500 text-[11px]">
               Current Venture: Pradrix (AI & Operational Automation)
             </div>
-            <div className="text-[var(--accent)] text-[11px] font-semibold">
+            <div className="text-sky-400 text-[11px] font-semibold">
               Philosophy: “What if? → It actually works.”
             </div>
           </div>
@@ -159,7 +158,7 @@ export function TerminalView({
       }
 
       case "pwd": {
-        outputNode = <div className="text-xs font-mono text-[var(--foreground)]">{cwd}</div>;
+        outputNode = <div className="text-xs font-mono text-zinc-300">{cwd}</div>;
         break;
       }
 
@@ -176,7 +175,7 @@ export function TerminalView({
           );
         } else if (node.type === "file") {
           outputNode = (
-            <div className="text-xs font-mono text-[var(--foreground)]">
+            <div className="text-xs font-mono text-zinc-300">
               {node.name} ({node.size})
             </div>
           );
@@ -198,7 +197,7 @@ export function TerminalView({
                   className={`text-left hover:underline truncate ${
                     child.type === "directory"
                       ? "text-amber-400 font-semibold"
-                      : "text-blue-400"
+                      : "text-sky-400"
                   }`}
                 >
                   {child.name}
@@ -256,11 +255,11 @@ export function TerminalView({
           } else {
             onSelectFile(file);
             outputNode = (
-              <div className="space-y-1 text-xs font-mono bg-[var(--background-card)] p-3 rounded border border-[var(--border-subtle)]">
-                <div className="text-[10px] text-[var(--accent)] uppercase tracking-wider pb-1 border-b border-[var(--border-subtle)]">
+              <div className="space-y-1 text-xs font-mono bg-[#161b22] p-3 rounded border border-[#30363d]">
+                <div className="text-[10px] text-sky-400 uppercase tracking-wider pb-1 border-b border-[#30363d]">
                   {file.path} ({file.size})
                 </div>
-                <pre className="overflow-x-auto whitespace-pre-wrap text-[var(--foreground)] font-mono text-[11px] pt-1">
+                <pre className="overflow-x-auto whitespace-pre-wrap text-zinc-200 font-mono text-[11px] pt-1">
                   {file.content}
                 </pre>
               </div>
@@ -283,27 +282,27 @@ export function TerminalView({
           const results = searchVirtualFiles(query);
           if (results.length === 0) {
             outputNode = (
-              <div className="text-xs font-mono text-[var(--foreground-muted)]">
+              <div className="text-xs font-mono text-zinc-400">
                 grep: no matches found for &quot;{query}&quot;
               </div>
             );
           } else {
             outputNode = (
               <div className="space-y-1.5 text-xs font-mono">
-                <div className="text-[11px] text-[var(--foreground-subtle)]">
+                <div className="text-[11px] text-zinc-400">
                   {results.length} match(es) across virtual filesystem:
                 </div>
                 <div className="space-y-1">
                   {results.map((r, i) => (
                     <div
                       key={i}
-                      className="p-1.5 rounded bg-[var(--background-card)] border border-[var(--border-subtle)] flex items-start gap-2 cursor-pointer hover:border-[var(--accent)]"
+                      className="p-1.5 rounded bg-[#161b22] border border-[#30363d] flex items-start gap-2 cursor-pointer hover:border-sky-400 transition-colors"
                       onClick={() => onSelectFile(r.file)}
                     >
-                      <span className="text-[var(--accent)] shrink-0 text-[10px]">
+                      <span className="text-sky-400 shrink-0 text-[10px]">
                         {r.file.path}:{r.line}
                       </span>
-                      <span className="text-[var(--foreground)] truncate text-[11px]">
+                      <span className="text-zinc-200 truncate text-[11px]">
                         {r.text}
                       </span>
                     </div>
@@ -331,7 +330,7 @@ export function TerminalView({
           if (file) {
             onSelectFile(file);
             outputNode = (
-              <div className="text-xs font-mono text-[var(--accent)]">
+              <div className="text-xs font-mono text-sky-400">
                 Opened file: {file.path}
               </div>
             );
@@ -358,7 +357,7 @@ export function TerminalView({
             const matchedRoute = routes[target.replace(/^\//, "")];
             if (matchedRoute) {
               outputNode = (
-                <div className="text-xs font-mono text-[var(--accent)]">
+                <div className="text-xs font-mono text-sky-400">
                   Navigating to {matchedRoute}...
                 </div>
               );
@@ -379,10 +378,10 @@ export function TerminalView({
 
       case "history": {
         outputNode = (
-          <div className="space-y-0.5 text-xs font-mono text-[var(--foreground-muted)]">
+          <div className="space-y-0.5 text-xs font-mono text-zinc-400">
             {history.map((h, i) => (
               <div key={i} className="flex gap-3">
-                <span className="text-[var(--foreground-subtle)] w-6 text-right select-none">
+                <span className="text-zinc-600 w-6 text-right select-none">
                   {i + 1}
                 </span>
                 <span>{h}</span>
@@ -409,8 +408,8 @@ export function TerminalView({
         outputNode = (
           <div className="space-y-1 text-xs font-mono text-red-400">
             <div>command not found: {cmd}</div>
-            <div className="text-[var(--foreground-muted)] text-[11px]">
-              Type <span className="text-[var(--accent)] font-bold">help</span> to view available virtual commands.
+            <div className="text-zinc-400 text-[11px]">
+              Type <span className="text-sky-400 font-bold">help</span> to view available virtual commands.
             </div>
           </div>
         );
@@ -495,22 +494,33 @@ export function TerminalView({
     }
   };
 
+  const quickPills = [
+    { label: "whoami", cmd: "whoami" },
+    { label: "cat profile.ts", cmd: "cat /me/profile.ts" },
+    { label: "cat beliefs.ts", cmd: "cat /me/beliefs.ts" },
+    { label: "ls projects", cmd: "ls /projects" },
+    { label: "open pradrix", cmd: "open pradrix" },
+    { label: "grep AI", cmd: "grep AI" },
+    { label: "help", cmd: "help" },
+    { label: "clear", cmd: "clear" },
+  ];
+
   return (
     <div
-      className="h-full flex flex-col bg-[var(--background)] overflow-hidden font-mono select-text"
+      className="h-full flex flex-col bg-[#090c10] overflow-hidden font-mono select-text text-zinc-200"
       onClick={() => inputRef.current?.focus()}
     >
       {/* Terminal Title Sub-Bar */}
-      <div className="flex items-center justify-between px-4 py-2 bg-[var(--background-subtle)] border-b border-[var(--border)] text-xs text-[var(--foreground-muted)] select-none">
+      <div className="flex items-center justify-between px-4 py-2 bg-[#161b22] border-b border-[#30363d] text-xs text-zinc-400 select-none">
         <div className="flex items-center gap-2">
-          <TerminalIcon className="w-3.5 h-3.5 text-[var(--accent)]" />
-          <span className="font-semibold text-[var(--foreground)]">Virtual Shell</span>
-          <span className="text-[10px] text-[var(--foreground-subtle)]">
+          <TerminalIcon className="w-3.5 h-3.5 text-sky-400" />
+          <span className="font-semibold text-zinc-200">Virtual Terminal</span>
+          <span className="hidden sm:inline text-[10px] text-zinc-500">
             (Tab for auto-complete · ↑↓ history · Ctrl+L clear)
           </span>
         </div>
 
-        <div className="flex items-center gap-2 text-[10px] text-[var(--foreground-subtle)]">
+        <div className="flex items-center gap-2 text-[10px] text-zinc-500">
           <span>{cwd}</span>
         </div>
       </div>
@@ -526,11 +536,11 @@ export function TerminalView({
           <div key={entry.id} className="space-y-1">
             {entry.command && (
               <div className="flex items-center gap-2 text-xs">
-                <span className="text-emerald-500 font-bold">rinku@nitj</span>
-                <span className="text-[var(--foreground-subtle)]">:</span>
-                <span className="text-blue-400 font-medium">{entry.cwd}</span>
-                <span className="text-[var(--foreground-muted)]">$</span>
-                <span className="text-[var(--foreground)] font-semibold">
+                <span className="text-emerald-400 font-bold">rinku@nitj</span>
+                <span className="text-zinc-500">:</span>
+                <span className="text-sky-400 font-medium">{entry.cwd}</span>
+                <span className="text-zinc-400">$</span>
+                <span className="text-zinc-100 font-semibold">
                   {entry.command}
                 </span>
               </div>
@@ -541,6 +551,24 @@ export function TerminalView({
         <div ref={terminalEndRef} />
       </div>
 
+      {/* Quick Command Pills Bar */}
+      <div className="px-3 py-1.5 bg-[#0d1117] border-t border-[#21262d] flex items-center gap-1.5 overflow-x-auto select-none">
+        <div className="flex items-center gap-1 text-[10px] text-zinc-500 shrink-0 mr-1">
+          <Command className="w-3 h-3 text-sky-400" />
+          <span>Quick:</span>
+        </div>
+        {quickPills.map((pill) => (
+          <button
+            key={pill.label}
+            type="button"
+            onClick={() => executeCommand(pill.cmd)}
+            className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#161b22] hover:bg-[#21262d] text-zinc-300 hover:text-sky-400 border border-[#30363d] transition-colors shrink-0"
+          >
+            {pill.label}
+          </button>
+        ))}
+      </div>
+
       {/* Terminal Prompt Input Bar */}
       <form
         onSubmit={(e) => {
@@ -548,12 +576,12 @@ export function TerminalView({
           executeCommand(input);
           setInput("");
         }}
-        className="p-3 bg-[var(--background-subtle)] border-t border-[var(--border)] flex items-center gap-2"
+        className="p-3 bg-[#161b22] border-t border-[#30363d] flex items-center gap-2"
       >
-        <span className="text-emerald-500 text-xs font-bold shrink-0">rinku@nitj</span>
-        <span className="text-[var(--foreground-subtle)] text-xs shrink-0">:</span>
-        <span className="text-blue-400 text-xs font-medium shrink-0">{cwd}</span>
-        <span className="text-[var(--foreground-muted)] text-xs font-bold shrink-0">$</span>
+        <span className="text-emerald-400 text-xs font-bold shrink-0">rinku@nitj</span>
+        <span className="text-zinc-500 text-xs shrink-0">:</span>
+        <span className="text-sky-400 text-xs font-medium shrink-0">{cwd}</span>
+        <span className="text-zinc-400 text-xs font-bold shrink-0">$</span>
 
         <input
           ref={inputRef}
@@ -562,7 +590,7 @@ export function TerminalView({
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Type a command (help, ls, cat, whoami, grep, open, exit)..."
-          className="flex-1 bg-transparent text-xs font-mono text-[var(--foreground)] focus:outline-hidden placeholder:text-[var(--foreground-subtle)]"
+          className="flex-1 bg-transparent text-xs font-mono text-white focus:outline-hidden placeholder:text-zinc-600"
           aria-label="Terminal Command Input"
           autoFocus
           autoComplete="off"
@@ -573,7 +601,7 @@ export function TerminalView({
 
         <button
           type="submit"
-          className="p-1 rounded text-[var(--foreground-subtle)] hover:text-[var(--accent)] transition-colors"
+          className="p-1 rounded text-zinc-500 hover:text-sky-400 transition-colors"
           title="Send command"
         >
           <CornerDownLeft className="w-3.5 h-3.5" />
