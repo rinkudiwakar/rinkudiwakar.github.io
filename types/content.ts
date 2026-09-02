@@ -46,6 +46,8 @@ export interface Profile {
     degree: string;
     field: string;
     institution: string;
+    period?: string;
+    cgpa?: string;
     focus: string[];
   };
   interests: {

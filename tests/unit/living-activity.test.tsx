@@ -45,7 +45,7 @@ describe("Living Activity: Build Log, Signals & Proof", () => {
 
     // Verify key claims exist
     expect(
-      screen.getByText(/Bachelor of Technology in Electrical Engineering/i)
+      screen.getByText(/Pursuing Bachelor of Technology/i)
     ).toBeInTheDocument();
     expect(
       screen.getByText(/Kavach: Built an end-to-end voice authentication/i)

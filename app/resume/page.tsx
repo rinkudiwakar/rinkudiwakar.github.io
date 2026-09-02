@@ -96,13 +96,13 @@ export default function ResumePage() {
                   </p>
                 </div>
                 <Badge variant="mono" className="text-xs shrink-0 self-start sm:self-auto">
-                  Graduated 2024
+                  2023 – 2027 · CGPA: 7.44
                 </Badge>
               </div>
 
               <div className="pt-2 border-t border-[var(--border-subtle)] space-y-2 text-xs font-mono text-[var(--foreground-muted)]">
                 <span className="text-[10px] uppercase tracking-wider text-[var(--foreground-subtle)] block">
-                  Core Competencies:
+                  Core Engineering & Systems Focus:
                 </span>
                 <div className="flex flex-wrap gap-2">
                   {profile.education.focus.map((focus) => (
@@ -122,43 +122,43 @@ export default function ResumePage() {
           <section className="space-y-6">
             <div className="flex items-center gap-2 text-xs font-mono text-[var(--accent)] uppercase tracking-wider font-semibold">
               <Code className="w-4 h-4" />
-              <span>Technical Competencies</span>
+              <span>Technical Competencies (content.md)</span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Card className="p-5 space-y-2 bg-[var(--background-card)] border-[var(--border-strong)]">
                 <span className="text-xs font-mono uppercase tracking-wider text-[var(--accent)] font-semibold">
-                  Languages & Runtime
+                  Programming & Backend
                 </span>
                 <p className="text-xs font-mono text-[var(--foreground-muted)] leading-relaxed">
-                  TypeScript, JavaScript (ESNext), Python 3, C/C++ (Embedded), SQL, Bash
+                  Python, C++, SQL, JavaScript, TypeScript, FastAPI, Flask, REST APIs, Celery, Redis, React.js
                 </p>
               </Card>
 
               <Card className="p-5 space-y-2 bg-[var(--background-card)] border-[var(--border-strong)]">
                 <span className="text-xs font-mono uppercase tracking-wider text-[var(--accent)] font-semibold">
-                  Frameworks & Platforms
+                  AI, ML & Generative AI
                 </span>
                 <p className="text-xs font-mono text-[var(--foreground-muted)] leading-relaxed">
-                  Next.js (App Router), React, FastAPI, Node.js, TailwindCSS, Vitest
+                  PyTorch, TensorFlow, Scikit-learn, XGBoost, Pandas, NumPy, RAG, Agentic AI, LangChain, Hugging Face, Vector DBs
                 </p>
               </Card>
 
               <Card className="p-5 space-y-2 bg-[var(--background-card)] border-[var(--border-strong)]">
                 <span className="text-xs font-mono uppercase tracking-wider text-[var(--accent)] font-semibold">
-                  Hardware & IoT
+                  Cloud, DevOps & MLOps
                 </span>
                 <p className="text-xs font-mono text-[var(--foreground-muted)] leading-relaxed">
-                  Raspberry Pi, Arduino, ESP32, Serial UART/I2C, Relay Circuits, Servo Motors
+                  AWS (EC2, S3), Docker, Kubernetes, Amazon EKS, GitHub Actions CI/CD, MLflow, DVC
                 </p>
               </Card>
 
               <Card className="p-5 space-y-2 bg-[var(--background-card)] border-[var(--border-strong)]">
                 <span className="text-xs font-mono uppercase tracking-wider text-[var(--accent)] font-semibold">
-                  AI & Workflow Systems
+                  Databases & Embedded
                 </span>
                 <p className="text-xs font-mono text-[var(--foreground-muted)] leading-relaxed">
-                  Sentence Transformers, Vector Similarity, REST APIs, Automation Pipelines
+                  PostgreSQL, MySQL, MongoDB, Supabase, Raspberry Pi, Arduino C++, Linux, Git, Postman
                 </p>
               </Card>
             </div>

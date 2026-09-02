@@ -95,7 +95,7 @@ export default function AboutPage() {
               {profile.education.degree} in {profile.education.field}
             </h2>
             <p className="text-sm font-mono text-[var(--accent)] font-medium">
-              {profile.education.institution} (Class of 2024)
+              {profile.education.institution} ({profile.education.period || "2023 – 2027"} · CGPA: {profile.education.cgpa || "7.44"})
             </p>
           </div>
 

@@ -45,14 +45,14 @@ describe("Inner Routes Verification", () => {
     expect(screen.getAllByText("Rinku Diwakar").length).toBeGreaterThanOrEqual(1);
     expect(screen.getByText("Building as an act of learning")).toBeInTheDocument();
     expect(
-      screen.getByText(/Bachelor of Technology in Electrical Engineering/i)
+      screen.getByText(/Bachelor of Technology/i)
     ).toBeInTheDocument();
   });
 
   it("renders ResumePage with verifiable credentials and technical stack", () => {
     render(<ResumePage />);
     expect(screen.getAllByText("Rinku Diwakar").length).toBeGreaterThanOrEqual(1);
-    expect(screen.getByText("Technical Competencies")).toBeInTheDocument();
+    expect(screen.getByText(/Technical Competencies/i)).toBeInTheDocument();
     expect(screen.getByText("Engineered Systems & Projects")).toBeInTheDocument();
     expect(screen.getByText("Verifiable Evidence & Records")).toBeInTheDocument();
   });

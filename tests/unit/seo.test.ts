@@ -27,7 +27,7 @@ describe("SEO & Discoverability System", () => {
 
     const person = jsonLd["@graph"].find((item) => item["@type"] === "Person");
     expect(person?.name).toBe("Rinku Diwakar");
-    expect(person?.alumniOf?.name).toContain("NIT Jalandhar");
+    expect(person?.affiliation?.name).toContain("National Institute of Technology");
     expect(person?.founder?.name).toBe("Pradrix");
 
     const website = jsonLd["@graph"].find((item) => item["@type"] === "WebSite");

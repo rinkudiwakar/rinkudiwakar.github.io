@@ -24,7 +24,7 @@ describe("Content Architecture Validation Suite", () => {
     expect(profile.coreIdentity).toBe("A builder who learns by solving real problems.");
     expect(profile.philosophy).toContain("What if?");
     expect(profile.currentFocus.name).toBe("Pradrix");
-    expect(profile.education.institution).toContain("NIT Jalandhar");
+    expect(profile.education.institution).toContain("National Institute of Technology");
     expect(profile.socialLinks.length).toBeGreaterThanOrEqual(2);
   });
 
@@ -109,11 +109,14 @@ describe("Content Architecture Validation Suite", () => {
 
   it("validates engineering and personal lessons", () => {
     const lessons = getLessons();
-    expect(lessons.length).toBe(3);
+    expect(lessons.length).toBe(4);
     const principles = lessons.map((l) => l.principle);
-    expect(principles).toContain("Being busy is not the same as making meaningful progress.");
-    expect(principles).toContain("Building is not just writing code that works.");
-    expect(principles).toContain("Growth comes from taking ownership before having everything figured out.");
+    expect(principles).toContain("A working program is not automatically a useful product.");
+    expect(principles).toContain("Start before you feel completely ready.");
+    expect(principles).toContain("Growth happens when you take responsibility without having every answer available.");
+    expect(principles).toContain(
+      "Doing ten things badly can feel productive while doing one important thing deeply actually moves you forward."
+    );
   });
 
   it("validates published build log entries", () => {

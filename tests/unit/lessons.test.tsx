@@ -22,10 +22,10 @@ describe("What Building Taught Me Section", () => {
 
     // Verify key titles
     expect(
-      screen.getByText("Building is More Than Working Code")
+      screen.getByText("Building is Different from Coding")
     ).toBeInTheDocument();
     expect(
-      screen.getByText("Ownership Before Certainty")
+      screen.getByText("Ownership Accelerates Learning")
     ).toBeInTheDocument();
   });
 });

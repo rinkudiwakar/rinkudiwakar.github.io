@@ -15,7 +15,7 @@ export function getPersonStructuredData() {
         url: siteConfig.url,
         jobTitle: "Builder & Founder",
         description: profileData.coreIdentity,
-        alumniOf: {
+        affiliation: {
           "@type": "EducationalOrganization",
           name: profileData.education.institution,
           url: "https://www.nitj.ac.in",
@@ -29,14 +29,15 @@ export function getPersonStructuredData() {
         sameAs: profileData.socialLinks.map((link) => link.url),
         knowsAbout: [
           "Electrical Engineering",
-          "Applied Artificial Intelligence",
-          "Workflow Automation",
-          "Internet of Things (IoT)",
-          "Embedded Hardware Systems",
-          "TypeScript",
+          "Machine Learning & MLOps",
+          "Generative AI & RAG",
           "Python",
-          "Next.js",
+          "C++",
           "FastAPI",
+          "Kubernetes & Amazon EKS",
+          "Workflow Automation",
+          "IoT & Embedded Hardware Systems",
+          "TypeScript & Next.js",
         ],
       },
       {

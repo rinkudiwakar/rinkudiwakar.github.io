@@ -2,42 +2,55 @@ import { Lesson } from "@/types/content";
 
 export const lessonsData: Lesson[] = [
   {
-    id: "lesson-focus",
-    title: "Activity vs Meaningful Progress",
-    category: "failure",
-    principle: "Being busy is not the same as making meaningful progress.",
+    id: "lesson-building-vs-coding",
+    title: "Building is Different from Coding",
+    category: "building",
+    principle: "A working program is not automatically a useful product.",
     context:
-      "Early on, I tried to learn multiple technologies, pursue scattered opportunities, and start numerous projects at once. The result was high effort without deep mastery or completed systems.",
+      "Real building requires understanding the human problem, making difficult technical trade-offs, handling real failure modes, integrating disparate systems, and measuring whether anyone actually benefits.",
     learnings: [
-      "Prioritize ruthless depth over shallow breadth.",
-      "Finish and ship projects before context-switching.",
-      "True momentum comes from completed loops, not open tabs.",
+      "Understand the real user and operational problem before choosing technologies.",
+      "Anticipate integration failures and design defensive fallbacks for physical and digital edge cases.",
+      "A build is only complete when it survives stress in production conditions.",
     ],
   },
   {
-    id: "lesson-engineering",
-    title: "Building is More Than Working Code",
-    category: "technical",
-    principle: "Building is not just writing code that works.",
+    id: "lesson-start-before-ready",
+    title: "You Don't Need to Know Everything Before Starting",
+    category: "personal",
+    principle: "Start before you feel completely ready.",
     context:
-      "Real-world systems, especially physical-digital integrations like Kavach, fail at the seams — power drops, acoustic interference, misaligned user assumptions, and edge-case security vulnerabilities.",
+      "Waiting to learn everything before writing a single line leads to endless delay. The loop that works is: Start → Discover what you don't know → Learn → Ask → Build → Fix.",
     learnings: [
-      "Understand the real human problem before choosing the tech stack.",
-      "Anticipate integration failures and design defensive fallbacks.",
-      "A feature isn't complete until it survives stress in production conditions.",
+      "Action clarifies what textbooks and documentation obscure.",
+      "Embrace constructive breakage as the fastest diagnostic feedback loop.",
+      "Ask precise questions and learn tools in the direct context of building.",
     ],
   },
   {
     id: "lesson-ownership",
-    title: "Ownership Before Certainty",
+    title: "Ownership Accelerates Learning",
     category: "personal",
-    principle: "Growth comes from taking ownership before having everything figured out.",
+    principle: "Growth happens when you take responsibility without having every answer available.",
     context:
-      "Waiting for perfect information or complete confidence stalls execution. The most meaningful learning occurred when taking responsibility for ambitious builds without knowing all the answers upfront.",
+      "Some of my strongest technical growth occurred during Kavach and complex ML pipelines where no one had pre-packaged solutions. Taking total ownership forces you to handle uncertainty and learn while building.",
     learnings: [
-      "Start with first principles and learn required tools along the way.",
-      "Embrace constructive failure as the fastest diagnostic signal.",
-      "Ask precise questions and iterate transparently.",
+      "Take responsibility for end-to-end outcomes, not just isolated subtasks.",
+      "Handle uncertainty with structured first-principles experimentation.",
+      "Be honest about what you don't know, and ask for help when necessary.",
+    ],
+  },
+  {
+    id: "lesson-focus-depth",
+    title: "Focus Creates Depth (Activity vs Progress)",
+    category: "failure",
+    principle: "Doing ten things badly can feel productive while doing one important thing deeply actually moves you forward.",
+    context:
+      "My biggest personal failure was trying to do too many things simultaneously — learning 10 technologies, chasing scattered opportunities, and opening endless tabs. Focus taught me that true progress is measured by taking something from idea to working reality.",
+    learnings: [
+      "Prioritize ruthless depth over shallow, scattered breadth.",
+      "Finish, test, and ship one system before switching contexts.",
+      "Stop switching too early; real mastery lives in the final 20% of difficult polish.",
     ],
   },
 ];

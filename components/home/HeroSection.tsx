@@ -121,7 +121,7 @@ export function HeroSection() {
                 {/* Top Technical Metadata */}
                 <div className="relative z-10 flex justify-between items-start text-[10px] font-mono text-[var(--foreground-muted)] uppercase tracking-wider">
                   <span>NIT JALANDHAR</span>
-                  <span>EST. 2024</span>
+                  <span>2023 – 2027</span>
                 </div>
 
                 {/* Center Monogram / Builder Emblem */}
