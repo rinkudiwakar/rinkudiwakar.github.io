@@ -1,12 +1,14 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/seo/metadata";
+import { getProjects } from "@/lib/content";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = [
+  const projects = getProjects();
+
+  const staticRoutes = [
     "",
     "/story",
     "/work",
-    "/work/kavach",
     "/pradrix",
     "/now",
     "/activity",
@@ -14,12 +16,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/about",
     "/resume",
     "/contact",
+    "/dev",
   ];
 
-  return routes.map((route) => ({
+  const projectRoutes = projects.map((p) => `/work/${p.slug}`);
+
+  const allRoutes = [...staticRoutes, ...projectRoutes];
+
+  return allRoutes.map((route) => ({
     url: `${siteConfig.url}${route}`,
     lastModified: new Date().toISOString(),
-    changeFrequency: route === "" || route === "/now" || route === "/activity" ? "daily" : "monthly",
-    priority: route === "" ? 1.0 : 0.8,
+    changeFrequency:
+      route === "" || route === "/now" || route === "/activity"
+        ? "daily"
+        : "monthly",
+    priority: route === "" ? 1.0 : route.startsWith("/work/") ? 0.9 : 0.8,
   }));
 }
