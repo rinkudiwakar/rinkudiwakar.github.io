@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { X, Copy, Check, FileCode, Clock, HardDrive } from "lucide-react";
+import Link from "next/link";
+import { X, Copy, Check, FileCode, Clock, HardDrive, ExternalLink } from "lucide-react";
 import { VFSFile } from "@/lib/virtual-fs/types";
 
 interface FileViewerProps {
@@ -13,11 +14,28 @@ export function FileViewer({ file, onClose }: FileViewerProps) {
   const [copied, setCopied] = React.useState(false);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(file.content);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      navigator.clipboard.writeText(file.content);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
   };
 
+  const getMatchingRoute = (path: string): string | null => {
+    if (path.startsWith("/projects/kavach")) return "/work/kavach";
+    if (path.startsWith("/projects/skillgap-ai")) return "/work/skillgap-ai";
+    if (path.startsWith("/projects/nanotrade")) return "/work/nanotrade";
+    if (path.startsWith("/projects/moviesentiment")) return "/work/moviesentiment";
+    if (path.startsWith("/projects/bike-demand-ml")) return "/work/bike-demand-ml";
+    if (path.startsWith("/projects")) return "/work";
+    if (path.startsWith("/story")) return "/story";
+    if (path.startsWith("/now")) return "/now";
+    if (path.startsWith("/me/profile") || path.startsWith("/me/goals")) return "/about";
+    if (path.startsWith("/me/experience")) return "/resume";
+    return null;
+  };
+
+  const matchingRoute = getMatchingRoute(file.path);
   const lines = file.content.split("\n");
 
   return (
@@ -35,6 +53,17 @@ export function FileViewer({ file, onClose }: FileViewerProps) {
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
+          {matchingRoute && (
+            <Link
+              href={matchingRoute}
+              className="hidden sm:inline-flex items-center gap-1 px-2 py-1 rounded text-[11px] font-mono text-[var(--accent)] hover:bg-[var(--background-card)] transition-colors"
+              title="Open corresponding page in Story mode"
+            >
+              <span>View in Story</span>
+              <ExternalLink className="w-3 h-3" />
+            </Link>
+          )}
+
           <button
             type="button"
             onClick={handleCopy}

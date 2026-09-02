@@ -2,8 +2,14 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { Terminal as TerminalIcon, CornerDownLeft } from "lucide-react";
-import { resolvePath, listDirectory, getFile } from "@/lib/virtual-fs/command-parser";
+import { Terminal as TerminalIcon, CornerDownLeft, Sparkles } from "lucide-react";
+import {
+  resolvePath,
+  listDirectory,
+  getFile,
+  autocompletePath,
+  searchVirtualFiles,
+} from "@/lib/virtual-fs/command-parser";
 import { VFSFile } from "@/lib/virtual-fs/types";
 import { useThemeMode } from "@/context/ThemeModeContext";
 
@@ -37,15 +43,16 @@ export function TerminalView({
       id: "welcome",
       result: (
         <div className="space-y-2 py-2 text-xs font-mono">
-          <div className="text-[var(--accent)] font-bold">
-            ⚡ Rinku Diwakar — Developer Mode [VFS Terminal v1.0.0]
+          <div className="text-[var(--accent)] font-bold flex items-center gap-2">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Rinku Diwakar — Developer Mode [VFS Terminal v1.0.0]</span>
           </div>
           <div className="text-[var(--foreground-muted)]">
             Type <span className="text-[var(--accent)] font-semibold">help</span> to
             view available virtual commands, or click files in the tree.
           </div>
           <div className="text-[var(--foreground-subtle)] text-[11px]">
-            Virtual filesystem mapped from portfolio facts. No shell execution.
+            Virtual filesystem mapped from verified portfolio facts. Tab completion & command history enabled.
           </div>
         </div>
       ),
@@ -83,7 +90,7 @@ export function TerminalView({
             <div className="text-[var(--foreground)] font-bold mb-1">
               Available Virtual Commands:
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 text-[11px]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-[11px]">
               <div>
                 <span className="text-[var(--accent)] font-semibold">whoami</span> —
                 Display Rinku Diwakar identity
@@ -105,8 +112,12 @@ export function TerminalView({
                 View file content
               </div>
               <div>
+                <span className="text-[var(--accent)] font-semibold">grep &lt;text&gt;</span> —
+                Search across virtual files
+              </div>
+              <div>
                 <span className="text-[var(--accent)] font-semibold">open &lt;route&gt;</span> —
-                Navigate to page (pradrix, work, contact)
+                Navigate to page (pradrix, work, resume, contact)
               </div>
               <div>
                 <span className="text-[var(--accent)] font-semibold">history</span> —
@@ -128,18 +139,18 @@ export function TerminalView({
 
       case "whoami": {
         outputNode = (
-          <div className="space-y-1 text-xs font-mono text-[var(--foreground)]">
-            <div className="font-bold text-[var(--accent)]">Rinku Diwakar</div>
+          <div className="space-y-1.5 text-xs font-mono text-[var(--foreground)]">
+            <div className="font-bold text-[var(--accent)] text-sm">Rinku Diwakar</div>
             <div className="text-[var(--foreground-muted)]">
               Builder working across software, applied AI, data, and products.
             </div>
             <div className="text-[var(--foreground-subtle)] text-[11px]">
-              Education: B.Tech Electrical Engineering, NIT Jalandhar (2024)
+              Education: B.Tech in Electrical Engineering, NIT Jalandhar (2023 – 2027, CGPA: 7.44)
             </div>
             <div className="text-[var(--foreground-subtle)] text-[11px]">
               Current Venture: Pradrix (AI & Operational Automation)
             </div>
-            <div className="text-[var(--accent)] text-[11px]">
+            <div className="text-[var(--accent)] text-[11px] font-semibold">
               Philosophy: “What if? → It actually works.”
             </div>
           </div>
@@ -249,7 +260,7 @@ export function TerminalView({
                 <div className="text-[10px] text-[var(--accent)] uppercase tracking-wider pb-1 border-b border-[var(--border-subtle)]">
                   {file.path} ({file.size})
                 </div>
-                <pre className="text-[var(--foreground)] whitespace-pre-wrap overflow-x-auto">
+                <pre className="overflow-x-auto whitespace-pre-wrap text-[var(--foreground)] font-mono text-[11px] pt-1">
                   {file.content}
                 </pre>
               </div>
@@ -259,35 +270,109 @@ export function TerminalView({
         break;
       }
 
-      case "open":
-      case "navigate": {
-        const target = args[0]?.toLowerCase();
+      case "grep": {
+        if (!args[0]) {
+          isErr = true;
+          outputNode = (
+            <div className="text-xs font-mono text-red-400">
+              grep: missing search pattern. Usage: grep &lt;text&gt;
+            </div>
+          );
+        } else {
+          const query = args.join(" ");
+          const results = searchVirtualFiles(query);
+          if (results.length === 0) {
+            outputNode = (
+              <div className="text-xs font-mono text-[var(--foreground-muted)]">
+                grep: no matches found for &quot;{query}&quot;
+              </div>
+            );
+          } else {
+            outputNode = (
+              <div className="space-y-1.5 text-xs font-mono">
+                <div className="text-[11px] text-[var(--foreground-subtle)]">
+                  {results.length} match(es) across virtual filesystem:
+                </div>
+                <div className="space-y-1">
+                  {results.map((r, i) => (
+                    <div
+                      key={i}
+                      className="p-1.5 rounded bg-[var(--background-card)] border border-[var(--border-subtle)] flex items-start gap-2 cursor-pointer hover:border-[var(--accent)]"
+                      onClick={() => onSelectFile(r.file)}
+                    >
+                      <span className="text-[var(--accent)] shrink-0 text-[10px]">
+                        {r.file.path}:{r.line}
+                      </span>
+                      <span className="text-[var(--foreground)] truncate text-[11px]">
+                        {r.text}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          }
+        }
+        break;
+      }
+
+      case "open": {
+        const target = args[0]?.toLowerCase() || "";
         if (!target) {
           isErr = true;
           outputNode = (
             <div className="text-xs font-mono text-red-400">
-              open: missing route. Try: open pradrix, open work, open contact, open home
+              open: missing target. Examples: open pradrix, open work, open contact, open /story/origin.md
             </div>
           );
-        } else if (target === "pradrix") {
-          router.push("/pradrix");
-          outputNode = <div className="text-xs font-mono text-[var(--accent)]">Navigating to /pradrix...</div>;
-        } else if (target === "work" || target === "projects") {
-          router.push("/work");
-          outputNode = <div className="text-xs font-mono text-[var(--accent)]">Navigating to /work...</div>;
-        } else if (target === "contact") {
-          router.push("/contact");
-          outputNode = <div className="text-xs font-mono text-[var(--accent)]">Navigating to /contact...</div>;
-        } else if (target === "home" || target === "journal") {
-          router.push("/");
-          outputNode = <div className="text-xs font-mono text-[var(--accent)]">Navigating to home...</div>;
         } else {
-          isErr = true;
-          outputNode = (
-            <div className="text-xs font-mono text-red-400">
-              open: unknown destination &apos;{target}&apos;. Try: pradrix, work, contact, home
-            </div>
-          );
+          // Check if it's a virtual file path
+          const file = getFile(target, cwd);
+          if (file) {
+            onSelectFile(file);
+            outputNode = (
+              <div className="text-xs font-mono text-[var(--accent)]">
+                Opened file: {file.path}
+              </div>
+            );
+          } else {
+            // Check if it's a page route
+            const routes: Record<string, string> = {
+              home: "/",
+              story: "/story",
+              work: "/work",
+              kavach: "/work/kavach",
+              "skillgap-ai": "/work/skillgap-ai",
+              skillgap: "/work/skillgap-ai",
+              nanotrade: "/work/nanotrade",
+              moviesentiment: "/work/moviesentiment",
+              pradrix: "/pradrix",
+              now: "/now",
+              activity: "/activity",
+              thinking: "/thinking",
+              about: "/about",
+              resume: "/resume",
+              contact: "/contact",
+            };
+
+            const matchedRoute = routes[target.replace(/^\//, "")];
+            if (matchedRoute) {
+              outputNode = (
+                <div className="text-xs font-mono text-[var(--accent)]">
+                  Navigating to {matchedRoute}...
+                </div>
+              );
+              setMode("normal");
+              router.push(matchedRoute);
+            } else {
+              isErr = true;
+              outputNode = (
+                <div className="text-xs font-mono text-red-400">
+                  open: unknown route &apos;{target}&apos;. Available: pradrix, work, story, now, about, resume, contact.
+                </div>
+              );
+            }
+          }
         }
         break;
       }
@@ -296,8 +381,10 @@ export function TerminalView({
         outputNode = (
           <div className="space-y-0.5 text-xs font-mono text-[var(--foreground-muted)]">
             {history.map((h, i) => (
-              <div key={i}>
-                <span className="text-[var(--foreground-subtle)] mr-2">{i + 1}</span>
+              <div key={i} className="flex gap-3">
+                <span className="text-[var(--foreground-subtle)] w-6 text-right select-none">
+                  {i + 1}
+                </span>
                 <span>{h}</span>
               </div>
             ))}
@@ -308,171 +395,190 @@ export function TerminalView({
 
       case "clear": {
         setEntries([]);
-        setInput("");
         return;
       }
 
-      case "exit":
-      case "mode": {
-        if (cmd === "exit" || args[0] === "normal") {
-          setMode("normal");
-          router.push("/");
-          return;
-        }
-        outputNode = (
-          <div className="text-xs font-mono text-[var(--foreground-muted)]">
-            Current mode: developer. Type &apos;exit&apos; to return to normal mode.
-          </div>
-        );
-        break;
+      case "exit": {
+        setMode("normal");
+        router.push("/");
+        return;
       }
 
       default: {
         isErr = true;
         outputNode = (
-          <div className="text-xs font-mono text-red-400">
-            command not found: {cmd}. Type &apos;help&apos; for available commands.
+          <div className="space-y-1 text-xs font-mono text-red-400">
+            <div>command not found: {cmd}</div>
+            <div className="text-[var(--foreground-muted)] text-[11px]">
+              Type <span className="text-[var(--accent)] font-bold">help</span> to view available virtual commands.
+            </div>
           </div>
         );
+        break;
       }
     }
 
     setEntries((prev) => [
       ...prev,
       {
-        id: `entry-${Date.now()}-${Math.random()}`,
+        id: `cmd-${Date.now()}-${Math.random()}`,
         command: trimmed,
         cwd,
         result: outputNode,
         isError: isErr,
       },
     ]);
-
-    setInput("");
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      executeCommand(input);
-    } else if (e.key === "ArrowUp") {
+    // History Up
+    if (e.key === "ArrowUp") {
       e.preventDefault();
-      if (history.length > 0) {
-        const nextIdx = historyIndex === -1 ? history.length - 1 : Math.max(0, historyIndex - 1);
+      if (history.length === 0) return;
+      const nextIdx =
+        historyIndex === -1 ? history.length - 1 : Math.max(0, historyIndex - 1);
+      setHistoryIndex(nextIdx);
+      setInput(history[nextIdx] || "");
+    }
+    // History Down
+    else if (e.key === "ArrowDown") {
+      e.preventDefault();
+      if (historyIndex === -1) return;
+      const nextIdx = historyIndex + 1;
+      if (nextIdx >= history.length) {
+        setHistoryIndex(-1);
+        setInput("");
+      } else {
         setHistoryIndex(nextIdx);
         setInput(history[nextIdx] || "");
       }
-    } else if (e.key === "ArrowDown") {
+    }
+    // Tab Auto-Completion
+    else if (e.key === "Tab") {
       e.preventDefault();
-      if (historyIndex !== -1) {
-        const nextIdx = historyIndex + 1;
-        if (nextIdx >= history.length) {
-          setHistoryIndex(-1);
-          setInput("");
-        } else {
-          setHistoryIndex(nextIdx);
-          setInput(history[nextIdx] || "");
+      const parts = input.split(" ");
+      if (parts.length > 0) {
+        const lastToken = parts[parts.length - 1];
+        if (lastToken) {
+          const { completion, matches } = autocompletePath(lastToken, cwd);
+          if (completion) {
+            parts[parts.length - 1] = completion;
+            setInput(parts.join(" "));
+          } else if (matches.length > 1) {
+            setEntries((prev) => [
+              ...prev,
+              {
+                id: `tab-${Date.now()}`,
+                result: (
+                  <div className="flex flex-wrap gap-2 text-xs font-mono text-amber-400 py-1">
+                    {matches.map((m) => (
+                      <span key={m}>{m}</span>
+                    ))}
+                  </div>
+                ),
+              },
+            ]);
+          }
         }
       }
     }
+    // Enter Execute
+    else if (e.key === "Enter") {
+      e.preventDefault();
+      executeCommand(input);
+      setInput("");
+    }
+    // Ctrl + L clear
+    else if (e.ctrlKey && e.key === "l") {
+      e.preventDefault();
+      setEntries([]);
+    }
   };
-
-  const quickChips = [
-    "whoami",
-    "ls",
-    "cat me/profile.ts",
-    "cat me/beliefs.ts",
-    "open pradrix",
-    "help",
-    "exit",
-  ];
 
   return (
     <div
-      className="h-full flex flex-col bg-[var(--background)] font-mono text-xs overflow-hidden"
+      className="h-full flex flex-col bg-[var(--background)] overflow-hidden font-mono select-text"
       onClick={() => inputRef.current?.focus()}
     >
       {/* Terminal Title Sub-Bar */}
-      <div className="flex items-center justify-between px-4 py-2 bg-[var(--background-subtle)] border-b border-[var(--border)] select-none">
+      <div className="flex items-center justify-between px-4 py-2 bg-[var(--background-subtle)] border-b border-[var(--border)] text-xs text-[var(--foreground-muted)] select-none">
         <div className="flex items-center gap-2">
           <TerminalIcon className="w-3.5 h-3.5 text-[var(--accent)]" />
-          <span className="text-[11px] font-semibold text-[var(--foreground)]">
-            rinku@journal:{cwd}
+          <span className="font-semibold text-[var(--foreground)]">Virtual Shell</span>
+          <span className="text-[10px] text-[var(--foreground-subtle)]">
+            (Tab for auto-complete · ↑↓ history · Ctrl+L clear)
           </span>
         </div>
 
-        <div className="flex items-center gap-1.5 text-[10px] text-[var(--foreground-subtle)]">
-          <span className="hidden sm:inline">Press Esc or type &apos;exit&apos; to leave</span>
+        <div className="flex items-center gap-2 text-[10px] text-[var(--foreground-subtle)]">
+          <span>{cwd}</span>
         </div>
       </div>
 
-      {/* Output Stream */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-3">
+      {/* Terminal Output Scroll Area */}
+      <div
+        className="flex-1 overflow-auto p-4 space-y-3"
+        role="log"
+        aria-live="polite"
+        aria-label="Terminal Output Log"
+      >
         {entries.map((entry) => (
           <div key={entry.id} className="space-y-1">
             {entry.command && (
-              <div className="flex items-center gap-1.5 text-[var(--foreground-muted)]">
-                <span className="text-[var(--accent)] font-semibold">
-                  rinku@journal:{entry.cwd || cwd}$
-                </span>
-                <span className="text-[var(--foreground)] font-medium">
+              <div className="flex items-center gap-2 text-xs">
+                <span className="text-emerald-500 font-bold">rinku@nitj</span>
+                <span className="text-[var(--foreground-subtle)]">:</span>
+                <span className="text-blue-400 font-medium">{entry.cwd}</span>
+                <span className="text-[var(--foreground-muted)]">$</span>
+                <span className="text-[var(--foreground)] font-semibold">
                   {entry.command}
                 </span>
               </div>
             )}
-            {entry.result && <div className="pl-0 sm:pl-2">{entry.result}</div>}
+            {entry.result && <div className="pl-0">{entry.result}</div>}
           </div>
         ))}
         <div ref={terminalEndRef} />
       </div>
 
-      {/* Quick Command Chips (Mobile-friendly) */}
-      <div className="px-4 py-1.5 bg-[var(--background-subtle)] border-t border-[var(--border-subtle)] flex flex-wrap items-center gap-1.5 overflow-x-auto select-none">
-        <span className="text-[10px] text-[var(--foreground-subtle)] uppercase tracking-wider mr-1">
-          Quick:
-        </span>
-        {quickChips.map((chip) => (
-          <button
-            key={chip}
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              executeCommand(chip);
-            }}
-            className="px-2 py-0.5 rounded bg-[var(--background-card)] hover:bg-[var(--accent-subtle)] hover:text-[var(--accent)] border border-[var(--border)] text-[10px] text-[var(--foreground-muted)] transition-colors"
-          >
-            {chip}
-          </button>
-        ))}
-      </div>
+      {/* Terminal Prompt Input Bar */}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          executeCommand(input);
+          setInput("");
+        }}
+        className="p-3 bg-[var(--background-subtle)] border-t border-[var(--border)] flex items-center gap-2"
+      >
+        <span className="text-emerald-500 text-xs font-bold shrink-0">rinku@nitj</span>
+        <span className="text-[var(--foreground-subtle)] text-xs shrink-0">:</span>
+        <span className="text-blue-400 text-xs font-medium shrink-0">{cwd}</span>
+        <span className="text-[var(--foreground-muted)] text-xs font-bold shrink-0">$</span>
 
-      {/* Interactive Input Prompt Bar */}
-      <div className="p-3 bg-[var(--background-card)] border-t border-[var(--border)] flex items-center gap-2">
-        <span className="text-[var(--accent)] font-bold shrink-0">
-          rinku@journal:{cwd}$
-        </span>
         <input
           ref={inputRef}
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          autoFocus
-          spellCheck={false}
-          autoCapitalize="none"
-          autoComplete="off"
-          placeholder="Type command or 'help'..."
-          className="flex-1 bg-transparent border-none outline-none text-xs font-mono text-[var(--foreground)] placeholder:text-[var(--foreground-subtle)]"
+          placeholder="Type a command (help, ls, cat, whoami, grep, open, exit)..."
+          className="flex-1 bg-transparent text-xs font-mono text-[var(--foreground)] focus:outline-hidden placeholder:text-[var(--foreground-subtle)]"
           aria-label="Terminal Command Input"
+          autoFocus
+          autoComplete="off"
+          autoCorrect="off"
+          autoCapitalize="off"
+          spellCheck="false"
         />
+
         <button
-          type="button"
-          onClick={() => executeCommand(input)}
-          className="p-1 rounded text-[var(--foreground-muted)] hover:text-[var(--accent)] transition-colors"
-          title="Execute command"
+          type="submit"
+          className="p-1 rounded text-[var(--foreground-subtle)] hover:text-[var(--accent)] transition-colors"
+          title="Send command"
         >
           <CornerDownLeft className="w-3.5 h-3.5" />
         </button>
-      </div>
+      </form>
     </div>
   );
 }

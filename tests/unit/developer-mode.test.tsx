@@ -1,9 +1,15 @@
 import React from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { resolvePath, getFile, listDirectory } from "@/lib/virtual-fs/command-parser";
-import { virtualFileSystem } from "@/lib/virtual-fs/vfs-data";
+import {
+  resolvePath,
+  getFile,
+  listDirectory,
+  autocompletePath,
+  searchVirtualFiles,
+} from "@/lib/virtual-fs/command-parser";
 import { DeveloperMode } from "@/components/developer-mode/DeveloperMode";
+import { TerminalView } from "@/components/developer-mode/TerminalView";
 import { ThemeModeProvider } from "@/context/ThemeModeContext";
 
 // Mock next/navigation
@@ -15,7 +21,7 @@ vi.mock("next/navigation", () => ({
 }));
 
 describe("Developer Mode & Virtual Filesystem", () => {
-  describe("Virtual Filesystem Resolution", () => {
+  describe("Virtual Filesystem Resolution & Utilities", () => {
     it("resolves root and top-level directories", () => {
       const rootRes = resolvePath("/", "/");
       expect(rootRes.node).toBeDefined();
@@ -56,33 +62,49 @@ describe("Developer Mode & Virtual Filesystem", () => {
       expect(profileFile?.content).toContain("Rinku Diwakar");
       expect(profileFile?.language).toBe("typescript");
     });
+
+    it("autocompletes path prefixes accurately with autocompletePath", () => {
+      const autoMe = autocompletePath("pro", "/me");
+      expect(autoMe.completion).toBe("profile.ts");
+
+      const autoProj = autocompletePath("kav", "/projects");
+      expect(autoProj.completion).toBe("kavach/");
+    });
+
+    it("searches virtual files via searchVirtualFiles", () => {
+      const searchRes = searchVirtualFiles("Pradrix");
+      expect(searchRes.length).toBeGreaterThanOrEqual(1);
+      expect(searchRes[0].file).toBeDefined();
+      expect(searchRes[0].line).toBeGreaterThan(0);
+    });
   });
 
-  describe("DeveloperMode Component", () => {
-    it("renders DeveloperMode workspace with terminal and file tree", () => {
+  describe("TerminalView Interactive Commands", () => {
+    it("renders TerminalView with welcome message and prompt", () => {
       render(
         <ThemeModeProvider>
-          <DeveloperMode />
+          <TerminalView
+            cwd="/"
+            onCwdChange={vi.fn()}
+            onSelectFile={vi.fn()}
+          />
         </ThemeModeProvider>
       );
 
       expect(
-        screen.getByText(/Rinku Diwakar — Developer Workspace/i)
+        screen.getByText(/Rinku Diwakar — Developer Mode \[VFS Terminal v1.0.0\]/i)
       ).toBeInTheDocument();
-      expect(screen.getByText("Virtual Workspace")).toBeInTheDocument();
-      expect(
-        screen.getByText(/Developer Mode \[VFS Terminal v1.0.0\]/i)
-      ).toBeInTheDocument();
-
-      // Verify input prompt exists
-      const input = screen.getByLabelText("Terminal Command Input");
-      expect(input).toBeInTheDocument();
+      expect(screen.getByLabelText("Terminal Command Input")).toBeInTheDocument();
     });
 
-    it("executes whoami command and outputs user summary", () => {
+    it("executes whoami command and outputs verified credentials", () => {
       render(
         <ThemeModeProvider>
-          <DeveloperMode />
+          <TerminalView
+            cwd="/"
+            onCwdChange={vi.fn()}
+            onSelectFile={vi.fn()}
+          />
         </ThemeModeProvider>
       );
 
@@ -90,8 +112,72 @@ describe("Developer Mode & Virtual Filesystem", () => {
       fireEvent.change(input, { target: { value: "whoami" } });
       fireEvent.keyDown(input, { key: "Enter", code: "Enter" });
 
-      expect(screen.getByText("NIT Jalandhar (2024)", { exact: false })).toBeInTheDocument();
+      expect(
+        screen.getByText("NIT Jalandhar (2023 – 2027, CGPA: 7.44)", { exact: false })
+      ).toBeInTheDocument();
       expect(screen.getAllByText(/Pradrix/i).length).toBeGreaterThanOrEqual(1);
+    });
+
+    it("executes help, ls, and pwd commands cleanly", () => {
+      const handleCwdChange = vi.fn();
+      render(
+        <ThemeModeProvider>
+          <TerminalView
+            cwd="/me"
+            onCwdChange={handleCwdChange}
+            onSelectFile={vi.fn()}
+          />
+        </ThemeModeProvider>
+      );
+
+      const input = screen.getByLabelText("Terminal Command Input");
+
+      // Test pwd
+      fireEvent.change(input, { target: { value: "pwd" } });
+      fireEvent.keyDown(input, { key: "Enter", code: "Enter" });
+      expect(screen.getAllByText("/me").length).toBeGreaterThanOrEqual(1);
+
+      // Test help
+      fireEvent.change(input, { target: { value: "help" } });
+      fireEvent.keyDown(input, { key: "Enter", code: "Enter" });
+      expect(screen.getByText("Available Virtual Commands:")).toBeInTheDocument();
+    });
+
+    it("executes grep search command", () => {
+      render(
+        <ThemeModeProvider>
+          <TerminalView
+            cwd="/"
+            onCwdChange={vi.fn()}
+            onSelectFile={vi.fn()}
+          />
+        </ThemeModeProvider>
+      );
+
+      const input = screen.getByLabelText("Terminal Command Input");
+      fireEvent.change(input, { target: { value: "grep Kavach" } });
+      fireEvent.keyDown(input, { key: "Enter", code: "Enter" });
+
+      expect(screen.getByText(/match\(es\) across virtual filesystem:/i)).toBeInTheDocument();
+    });
+  });
+
+  describe("DeveloperMode Workspace Component", () => {
+    it("renders DeveloperMode workspace and skips entrance on click", () => {
+      render(
+        <ThemeModeProvider>
+          <DeveloperMode />
+        </ThemeModeProvider>
+      );
+
+      // Click splash to skip immediately
+      const splash = screen.getByText("Click to skip");
+      fireEvent.click(splash);
+
+      expect(
+        screen.getByText(/Rinku Diwakar — Developer Workspace/i)
+      ).toBeInTheDocument();
+      expect(screen.getByText("Virtual Workspace")).toBeInTheDocument();
     });
   });
 });
