@@ -14,7 +14,7 @@ export const metadata: Metadata = constructMetadata({
   canonicalUrl: "/contact",
 });
 
-const CONTACT_EMAIL = "diwakar.active@gmail.com";
+const CONTACT_EMAIL = "rinkudiwakar01@gmail.com";
 
 export default function ContactPage() {
   const profile = getProfile();

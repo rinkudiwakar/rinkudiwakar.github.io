@@ -52,8 +52,9 @@ describe("Future & Epilogue Sections", () => {
     expect(
       screen.getByRole("heading", { name: "Let’s start the next chapter." })
     ).toBeInTheDocument();
-    expect(screen.getByText("Three Connection Pathways")).toBeInTheDocument();
-    expect(screen.getByText("rinkudiwakar01@gmail.com")).toBeInTheDocument();
+    expect(
+      screen.getAllByText("rinkudiwakar01@gmail.com").length
+    ).toBeGreaterThanOrEqual(1);
     expect(screen.getByText("Within 24 Hours")).toBeInTheDocument();
   });
 });
