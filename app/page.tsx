@@ -5,6 +5,8 @@ import { OriginSection } from "@/components/home/OriginSection";
 import { JourneySection } from "@/components/home/JourneySection";
 import { KavachSection } from "@/components/home/KavachSection";
 import { ThingsIveBuiltSection } from "@/components/home/ThingsIveBuiltSection";
+import { WhatBuildingTaughtMeSection } from "@/components/home/WhatBuildingTaughtMeSection";
+import { PradrixSection } from "@/components/home/PradrixSection";
 
 export default function HomePage() {
   return (
@@ -27,6 +29,12 @@ export default function HomePage() {
 
         {/* 06 Things I've Built Section */}
         <ThingsIveBuiltSection />
+
+        {/* 07 What Building Taught Me Section */}
+        <WhatBuildingTaughtMeSection />
+
+        {/* 08 Pradrix Venture Section */}
+        <PradrixSection />
       </main>
     </Arrival>
   );
