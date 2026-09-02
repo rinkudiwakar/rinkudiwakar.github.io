@@ -7,6 +7,9 @@ import { KavachSection } from "@/components/home/KavachSection";
 import { ThingsIveBuiltSection } from "@/components/home/ThingsIveBuiltSection";
 import { WhatBuildingTaughtMeSection } from "@/components/home/WhatBuildingTaughtMeSection";
 import { PradrixSection } from "@/components/home/PradrixSection";
+import { BuildLogSection } from "@/components/home/BuildLogSection";
+import { SignalsSection } from "@/components/home/SignalsSection";
+import { ProofSection } from "@/components/home/ProofSection";
 
 export default function HomePage() {
   return (
@@ -35,6 +38,15 @@ export default function HomePage() {
 
         {/* 08 Pradrix Venture Section */}
         <PradrixSection />
+
+        {/* 09 Build Log Stream */}
+        <BuildLogSection />
+
+        {/* 10 Signals Stream */}
+        <SignalsSection />
+
+        {/* 11 Proof, Not Promises */}
+        <ProofSection />
       </main>
     </Arrival>
   );
