@@ -118,6 +118,29 @@ describe("Developer Mode & Virtual Filesystem", () => {
       expect(screen.getAllByText(/Pradrix/i).length).toBeGreaterThanOrEqual(1);
     });
 
+    it("executes neofetch and skills commands", () => {
+      render(
+        <ThemeModeProvider>
+          <TerminalView
+            cwd="/"
+            onCwdChange={vi.fn()}
+            onSelectFile={vi.fn()}
+          />
+        </ThemeModeProvider>
+      );
+
+      const input = screen.getByLabelText("Terminal Command Input");
+      fireEvent.change(input, { target: { value: "neofetch" } });
+      fireEvent.keyDown(input, { key: "Enter", code: "Enter" });
+
+      expect(screen.getByText(/DevOS macOS v2.4/i)).toBeInTheDocument();
+
+      fireEvent.change(input, { target: { value: "skills" } });
+      fireEvent.keyDown(input, { key: "Enter", code: "Enter" });
+
+      expect(screen.getByText(/Core Engineering Superpowers/i)).toBeInTheDocument();
+    });
+
     it("executes help, ls, and pwd commands cleanly", () => {
       const handleCwdChange = vi.fn();
       render(
@@ -162,8 +185,8 @@ describe("Developer Mode & Virtual Filesystem", () => {
     });
   });
 
-  describe("DeveloperMode Workspace Component", () => {
-    it("renders DeveloperMode workspace and skips entrance on click", () => {
+  describe("macOS DeveloperMode Dashboard Component", () => {
+    it("renders Dev Mode dashboard with reference bento-grid panels and tabs", () => {
       render(
         <ThemeModeProvider>
           <DeveloperMode />
@@ -174,10 +197,25 @@ describe("Developer Mode & Virtual Filesystem", () => {
       const splash = screen.getByText(/Skip →/i);
       fireEvent.click(splash);
 
-      expect(
-        screen.getByText(/rinku@nitj — ~/i)
-      ).toBeInTheDocument();
-      expect(screen.getByText("Explorer")).toBeInTheDocument();
+      // Check Dev Mode Header & Panels from reference UI
+      expect(screen.getByText(/>_ DEV MODE/i)).toBeInTheDocument();
+      expect(screen.getByText(/cat profile.exe/i)).toBeInTheDocument();
+      expect(screen.getAllByText(/EXPLORER/i).length).toBeGreaterThanOrEqual(1);
+      expect(screen.getByText(/commit.log/i)).toBeInTheDocument();
+      expect(screen.getByText(/stats.json/i)).toBeInTheDocument();
+      expect(screen.getAllByText(/skills\.db/i).length).toBeGreaterThanOrEqual(1);
+      expect(screen.getByText(/cat beliefs.txt/i)).toBeInTheDocument();
+      expect(screen.getByText(/MATRIX.STREAM/i)).toBeInTheDocument();
+
+      // Switch tab to TERMINAL
+      const terminalTab = screen.getByRole("button", { name: "TERMINAL" });
+      fireEvent.click(terminalTab);
+      expect(screen.getByLabelText("Terminal Command Input")).toBeInTheDocument();
+
+      // Switch back to ALL
+      const allTab = screen.getByRole("button", { name: "ALL" });
+      fireEvent.click(allTab);
+      expect(screen.getByText(/cat profile.exe/i)).toBeInTheDocument();
     });
   });
 });

@@ -91,8 +91,20 @@ export function TerminalView({
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-[11px]">
               <div>
+                <span className="text-emerald-400 font-semibold">neofetch</span> —
+                System specs, Matrix avatar & hardware status
+              </div>
+              <div>
                 <span className="text-sky-400 font-semibold">whoami</span> —
                 Display Rinku Diwakar identity & background
+              </div>
+              <div>
+                <span className="text-amber-400 font-semibold">skills</span> —
+                List engineering superpowers & tech stacks
+              </div>
+              <div>
+                <span className="text-purple-400 font-semibold">projects</span> —
+                Inspect architectures (Pradrix, Kavach)
               </div>
               <div>
                 <span className="text-sky-400 font-semibold">ls [path]</span> —
@@ -119,8 +131,8 @@ export function TerminalView({
                 Navigate to page (pradrix, work, resume, contact)
               </div>
               <div>
-                <span className="text-sky-400 font-semibold">history</span> —
-                Show command history
+                <span className="text-sky-400 font-semibold">quote</span> —
+                Get builder loop thought of the day
               </div>
               <div>
                 <span className="text-sky-400 font-semibold">clear</span> —
@@ -131,6 +143,102 @@ export function TerminalView({
                 to Normal Story Mode
               </div>
             </div>
+          </div>
+        );
+        break;
+      }
+
+      case "neofetch": {
+        outputNode = (
+          <div className="flex flex-col sm:flex-row gap-4 p-3 bg-zinc-950/80 rounded-xl border border-emerald-500/20 text-xs font-mono">
+            {/* ASCII Matrix Avatar Art */}
+            <div className="text-emerald-400 text-[10px] leading-tight select-none shrink-0 font-bold">
+              <pre>{`
+    .---.      rinku@nitj
+   /     \\     ----------
+  | () () |    OS: DevOS macOS v2.4 (Matrix Edition)
+   \\  -  /     Host: NIT Jalandhar (2023 - 2027)
+    \`---\`      Uptime: 100% Focused
+  /|     |\\    Shell: bash 5.2 (vfs-identity)
+ //|     |\\\\   Role: AI Systems & Distributed Backend Architect
+   |  _  |     Venture: Founder @ Pradrix
+   | | | |     GPA: 7.44 / 10.0 (Electrical Eng)
+   |_|_|_|     Stack: PyTorch, FastAPI, Next.js, Redis, IoT
+              `}</pre>
+            </div>
+            {/* Spec Details */}
+            <div className="space-y-1 text-zinc-300 text-[11px] flex-1">
+              <div className="text-emerald-400 font-bold">Rinku Diwakar @ DevOS</div>
+              <div className="text-zinc-500">----------------------</div>
+              <div><span className="text-sky-400 font-semibold">Tagline:</span> “What if? → It actually works.”</div>
+              <div><span className="text-amber-400 font-semibold">Discipline:</span> Electrical Engineering & Computer Systems</div>
+              <div><span className="text-purple-400 font-semibold">Philosophy:</span> Learning by solving real-world friction</div>
+              <div><span className="text-pink-400 font-semibold">Core Builds:</span> Pradrix (Agentic AI) & Kavach (Hardware IoT)</div>
+              <div className="pt-2 flex gap-1">
+                <span className="w-3 h-3 bg-red-500 rounded-xs inline-block" />
+                <span className="w-3 h-3 bg-yellow-500 rounded-xs inline-block" />
+                <span className="w-3 h-3 bg-green-500 rounded-xs inline-block" />
+                <span className="w-3 h-3 bg-sky-500 rounded-xs inline-block" />
+                <span className="w-3 h-3 bg-purple-500 rounded-xs inline-block" />
+                <span className="w-3 h-3 bg-emerald-500 rounded-xs inline-block" />
+              </div>
+            </div>
+          </div>
+        );
+        break;
+      }
+
+      case "skills": {
+        outputNode = (
+          <div className="space-y-2 p-3 bg-zinc-950/80 rounded-xl border border-zinc-800 text-xs font-mono">
+            <div className="text-amber-400 font-bold text-sm">⚡ Core Engineering Superpowers:</div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-zinc-300 text-[11px]">
+              <div className="p-2 rounded bg-zinc-900 border border-zinc-800">
+                <div className="text-emerald-400 font-semibold">1. Applied AI & MLOps (92%)</div>
+                <div className="text-zinc-400 text-[10px]">PyTorch, TensorFlow, LangChain, RAG, ChromaDB</div>
+              </div>
+              <div className="p-2 rounded bg-zinc-900 border border-zinc-800">
+                <div className="text-sky-400 font-semibold">2. Distributed Backends (94%)</div>
+                <div className="text-zinc-400 text-[10px]">FastAPI, Async Python, Celery, Redis, PostgreSQL</div>
+              </div>
+              <div className="p-2 rounded bg-zinc-900 border border-zinc-800">
+                <div className="text-purple-400 font-semibold">3. Hardware & IoT (88%)</div>
+                <div className="text-zinc-400 text-[10px]">Microcontrollers, ESP32, Sensors, Circuit Design</div>
+              </div>
+              <div className="p-2 rounded bg-zinc-900 border border-zinc-800">
+                <div className="text-amber-400 font-semibold">4. System Architectures (90%)</div>
+                <div className="text-zinc-400 text-[10px]">Docker, CI/CD, Next.js, Test-driven design</div>
+              </div>
+            </div>
+          </div>
+        );
+        break;
+      }
+
+      case "projects": {
+        outputNode = (
+          <div className="space-y-2 p-3 bg-zinc-950/80 rounded-xl border border-zinc-800 text-xs font-mono">
+            <div className="text-purple-400 font-bold text-sm">🛠️ Active Production Architectures:</div>
+            <div className="space-y-1.5 text-zinc-300 text-[11px]">
+              <div>
+                <span className="text-emerald-400 font-semibold">Pradrix:</span> AI × Automation engine for business workflows (FastAPI, PyTorch, LangChain).
+              </div>
+              <div>
+                <span className="text-sky-400 font-semibold">Kavach:</span> Women safety smart band with instant biometric SOS & GSM/GPS telemetry.
+              </div>
+              <div>
+                <span className="text-amber-400 font-semibold">SkillGap AI:</span> Automated curriculum & job requirements parser with vector similarity scoring.
+              </div>
+            </div>
+          </div>
+        );
+        break;
+      }
+
+      case "quote": {
+        outputNode = (
+          <div className="p-3 bg-zinc-950/80 rounded-xl border border-emerald-500/20 text-xs font-mono text-emerald-400 italic">
+            “What if? → Question → Break Problem Down → Learn Unknown → Build → Break → Debug → Fix → Test → Make It Work.”
           </div>
         );
         break;
@@ -495,11 +603,12 @@ export function TerminalView({
   };
 
   const quickPills = [
+    { label: "neofetch", cmd: "neofetch" },
     { label: "whoami", cmd: "whoami" },
+    { label: "skills", cmd: "skills" },
+    { label: "projects", cmd: "projects" },
     { label: "cat profile.ts", cmd: "cat /me/profile.ts" },
-    { label: "cat beliefs.ts", cmd: "cat /me/beliefs.ts" },
-    { label: "ls projects", cmd: "ls /projects" },
-    { label: "open pradrix", cmd: "open pradrix" },
+    { label: "quote", cmd: "quote" },
     { label: "grep AI", cmd: "grep AI" },
     { label: "help", cmd: "help" },
     { label: "clear", cmd: "clear" },

@@ -37,12 +37,21 @@ export function ThemeModeProvider({ children }: { children: React.ReactNode }) {
     setCommandPaletteOpen((prev) => !prev);
   }, []);
 
-  // Global keyboard shortcut listener (Cmd/Ctrl + K, Escape)
+  // Global keyboard shortcut listener (Cmd/Ctrl + K, Cmd/Ctrl + Shift + D, Escape)
   React.useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
+      const activeTag = (document.activeElement?.tagName || "").toLowerCase();
+      const isInputActive = activeTag === "input" || activeTag === "textarea" || (document.activeElement as HTMLElement)?.isContentEditable;
+
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
         setCommandPaletteOpen((prev) => !prev);
+      } else if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key.toLowerCase() === "d") {
+        e.preventDefault();
+        toggleMode();
+      } else if (e.key === "`" && !isInputActive && !(e.metaKey || e.ctrlKey || e.altKey)) {
+        e.preventDefault();
+        toggleMode();
       } else if (e.key === "Escape" && isCommandPaletteOpen) {
         e.preventDefault();
         setCommandPaletteOpen(false);
@@ -51,7 +60,7 @@ export function ThemeModeProvider({ children }: { children: React.ReactNode }) {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isCommandPaletteOpen]);
+  }, [isCommandPaletteOpen, toggleMode]);
 
   return (
     <ThemeModeContext.Provider
