@@ -14,53 +14,26 @@ import ContactPage from "@/app/contact/page";
 import { ThemeModeProvider } from "@/context/ThemeModeContext";
 
 describe("Production QA Integration Audit", () => {
-  it("renders entire Homepage with 14 sequential chapters and 0 broken sections", () => {
+  it("renders streamlined Homepage with Hero, Pradrix showcase, and About Me sections", () => {
     render(
       <ThemeModeProvider>
         <Home />
       </ThemeModeProvider>
     );
 
-    // 00 Arrival & 01 Hero
+    // 01 Hero Section
     expect(screen.getAllByText(/Real Products/i).length).toBeGreaterThanOrEqual(1);
     expect(screen.getByText(/View My Work/i)).toBeInTheDocument();
 
-    // 02 Now
-    expect(screen.getAllByText(/Pradrix/i).length).toBeGreaterThanOrEqual(1);
+    // 01.5 Currently Building: Pradrix Showcase
+    expect(screen.getByText(/01 \/ CURRENTLY BUILDING/i)).toBeInTheDocument();
+    expect(screen.getByText("PRADRIX")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Visit Pradrix/i })).toBeInTheDocument();
 
-    // 03 Origin
-    expect(screen.getByText(/It didn’t start with technology/i)).toBeInTheDocument();
-    expect(screen.getByText(/It started with curiosity/i)).toBeInTheDocument();
-
-    // 04 Journey
-    expect(screen.getByText("From curiosity to building.")).toBeInTheDocument();
-
-    // 05 Kavach
-    expect(screen.getByText("“What if AI could become the key?”")).toBeInTheDocument();
-
-    // 06 Things I've Built
-    expect(screen.getByText("Things I’ve tried to make real.")).toBeInTheDocument();
-
-    // 07 What Building Taught Me
-    expect(screen.getByText("Hard lessons earned through execution.")).toBeInTheDocument();
-
-    // 08 Pradrix
-    expect(screen.getByText("“Understand before automating.”")).toBeInTheDocument();
-
-    // 09 Build Log
-    expect(screen.getByText("The evolution of active builds.")).toBeInTheDocument();
-
-    // 10 Signals
-    expect(screen.getByText("Activity & public signals.")).toBeInTheDocument();
-
-    // 11 Proof
-    expect(screen.getByText("Proof, not promises.")).toBeInTheDocument();
-
-    // 12 Future
-    expect(screen.getByText("Where I’m going next.")).toBeInTheDocument();
-
-    // 13 Epilogue
-    expect(screen.getByText("The story isn’t finished.")).toBeInTheDocument();
+    // 02 About Me Preview Section
+    expect(screen.getByText(/01 \/ ABOUT ME/i)).toBeInTheDocument();
+    expect(screen.getByText(/I started with/i)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /More About Me/i })).toBeInTheDocument();
   }, 25000);
 
   it("verifies all inner pages render with structured semantic hierarchy", () => {
