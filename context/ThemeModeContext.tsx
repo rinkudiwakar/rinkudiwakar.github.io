@@ -2,15 +2,12 @@
 
 import * as React from "react";
 
-export type ThemeMode = "normal" | "developer";
+export type ThemeMode = "light" | "dark";
 
 interface ThemeModeContextValue {
   mode: ThemeMode;
   setMode: (mode: ThemeMode) => void;
   toggleMode: () => void;
-  isCommandPaletteOpen: boolean;
-  setCommandPaletteOpen: (open: boolean) => void;
-  toggleCommandPalette: () => void;
 }
 
 const ThemeModeContext = React.createContext<ThemeModeContextValue | undefined>(
@@ -18,49 +15,48 @@ const ThemeModeContext = React.createContext<ThemeModeContextValue | undefined>(
 );
 
 export function ThemeModeProvider({ children }: { children: React.ReactNode }) {
-  const [mode, setModeState] = React.useState<ThemeMode>("normal");
-  const [isCommandPaletteOpen, setCommandPaletteOpen] = React.useState(false);
+  const [mode, setModeState] = React.useState<ThemeMode>("light");
 
-  // Sync mode with data-theme on HTML element
+  // Initialize from system preference or localStorage
+  React.useEffect(() => {
+    const stored = localStorage.getItem("theme") as ThemeMode | null;
+    if (stored === "light" || stored === "dark") {
+      setModeState(stored);
+      document.documentElement.setAttribute("data-theme", stored);
+    } else if (
+      typeof window !== "undefined" &&
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
+      setModeState("dark");
+      document.documentElement.setAttribute("data-theme", "dark");
+    }
+  }, []);
+
   const setMode = React.useCallback((newMode: ThemeMode) => {
     setModeState(newMode);
     if (typeof document !== "undefined") {
       document.documentElement.setAttribute("data-theme", newMode);
+      localStorage.setItem("theme", newMode);
     }
   }, []);
 
   const toggleMode = React.useCallback(() => {
-    setMode(mode === "normal" ? "developer" : "normal");
+    setMode(mode === "light" ? "dark" : "light");
   }, [mode, setMode]);
 
-  const toggleCommandPalette = React.useCallback(() => {
-    setCommandPaletteOpen((prev) => !prev);
-  }, []);
-
-  // Global keyboard shortcut listener (Cmd/Ctrl + K, Cmd/Ctrl + Shift + D, Escape)
+  // Global keyboard shortcut (Ctrl/Cmd + Shift + D to toggle theme)
   React.useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
-      const activeTag = (document.activeElement?.tagName || "").toLowerCase();
-      const isInputActive = activeTag === "input" || activeTag === "textarea" || (document.activeElement as HTMLElement)?.isContentEditable;
-
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
-        e.preventDefault();
-        setCommandPaletteOpen((prev) => !prev);
-      } else if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key.toLowerCase() === "d") {
+      if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key.toLowerCase() === "d") {
         e.preventDefault();
         toggleMode();
-      } else if (e.key === "`" && !isInputActive && !(e.metaKey || e.ctrlKey || e.altKey)) {
-        e.preventDefault();
-        toggleMode();
-      } else if (e.key === "Escape" && isCommandPaletteOpen) {
-        e.preventDefault();
-        setCommandPaletteOpen(false);
       }
     }
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isCommandPaletteOpen, toggleMode]);
+  }, [toggleMode]);
 
   return (
     <ThemeModeContext.Provider
@@ -68,9 +64,6 @@ export function ThemeModeProvider({ children }: { children: React.ReactNode }) {
         mode,
         setMode,
         toggleMode,
-        isCommandPaletteOpen,
-        setCommandPaletteOpen,
-        toggleCommandPalette,
       }}
     >
       {children}

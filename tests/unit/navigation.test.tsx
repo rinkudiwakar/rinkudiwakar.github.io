@@ -14,25 +14,24 @@ vi.mock("next/navigation", () => ({
 }));
 
 describe("Global Navigation & Layout Shell", () => {
-  it("renders desktop and mobile navigation links", () => {
+  it("renders desktop navigation links", () => {
     render(
       <ThemeModeProvider>
         <Header />
       </ThemeModeProvider>
     );
 
-    expect(screen.getAllByText("RINKU")[0]).toBeInTheDocument();
-    expect(screen.getAllByText("Now")[0]).toBeInTheDocument();
-    expect(screen.getAllByText("Work")[0]).toBeInTheDocument();
-    expect(screen.getAllByText("Story")[0]).toBeInTheDocument();
-    expect(screen.getAllByText("DEV")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("Home")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("About")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("Projects")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("Articles")[0]).toBeInTheDocument();
   });
 
   it("renders global footer with epilogue and connection channels", () => {
     render(<Footer />);
 
     expect(
-      screen.getByText("The story isn’t finished.")
+      screen.getByText(/The story isn[’']t finished\./i)
     ).toBeInTheDocument();
     expect(screen.getByText("Work With Me")).toBeInTheDocument();
     expect(screen.getByText("Explore Pradrix")).toBeInTheDocument();

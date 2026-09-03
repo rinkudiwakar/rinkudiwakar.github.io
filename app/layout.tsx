@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono, Caveat } from "next/font/google";
 import { constructMetadata } from "@/lib/seo/metadata";
 import { getPersonStructuredData } from "@/lib/seo/structured-data";
 import { SiteShell } from "@/components/layout/SiteShell";
@@ -17,11 +17,17 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+const caveat = Caveat({
+  subsets: ["latin"],
+  variable: "--font-handwritten",
+  display: "swap",
+});
+
 export const metadata: Metadata = constructMetadata();
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fbfbf9" },
+    { media: "(prefers-color-scheme: light)", color: "#F6F1EB" },
     { media: "(prefers-color-scheme: dark)", color: "#090c10" },
   ],
   width: "device-width",
@@ -43,7 +49,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${inter.variable} ${jetbrainsMono.variable} font-body antialiased min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)] selection:bg-[var(--accent-subtle)] selection:text-[var(--accent)]`}>
+      <body className={`${inter.variable} ${jetbrainsMono.variable} ${caveat.variable} font-body antialiased min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)] selection:bg-[var(--accent-subtle)] selection:text-[var(--accent)]`}>
         <a href="#main-content" className="skip-to-content">
           Skip to main content
         </a>

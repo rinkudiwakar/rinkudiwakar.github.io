@@ -2,32 +2,32 @@
 
 @layer base {
   :root {
-    /* Normal Mode — Warm Light Editorial Foundation */
-    --background: #fbfbf9;
-    --background-subtle: #f4f3ef;
-    --background-card: #ffffff;
+    /* Normal Mode — Warm Light Editorial Foundation (Sampled from hero_section_ui_example.png) */
+    --background: #F6F1EB;
+    --background-subtle: #EDE7DE;
+    --background-card: #FAF7F2;
     --foreground: #141416;
-    --foreground-muted: #5c5f66;
-    --foreground-subtle: #8b8f97;
+    --foreground-muted: #54524F;
+    --foreground-subtle: #8A857D;
     
-    /* Accent System — Restrained Blue */
-    --accent: #1d4ed8;
-    --accent-hover: #1e40af;
-    --accent-subtle: #eff6ff;
-    --accent-border: #bfdbfe;
+    /* Accent System — Editorial Blue to Purple */
+    --accent: #2563EB;
+    --accent-hover: #1D4ED8;
+    --accent-subtle: #EFF6FF;
+    --accent-border: #BFDBFE;
 
     /* Technical / State Colors */
-    --success: #15803d;
-    --warning: #b45309;
-    --error: #b91c1c;
+    --success: #15803D;
+    --warning: #B45309;
+    --error: #B91C1C;
 
     /* Borders and Dividers */
-    --border: #e6e5e0;
-    --border-subtle: #f0efe9;
-    --border-strong: #c8c7c0;
+    --border: #E2DBD0;
+    --border-subtle: #EFE8DE;
+    --border-strong: #C8BFB2;
 
     /* Focus Ring */
-    --ring: rgba(29, 78, 216, 0.4);
+    --ring: rgba(37, 99, 235, 0.4);
 
     /* Radii */
     --radius-sm: 4px;
@@ -37,14 +37,18 @@
     --radius-full: 9999px;
 
     /* Shadows */
-    --shadow-subtle: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
-    --shadow-card: 0 4px 12px -2px rgba(0, 0, 0, 0.06), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
-    --shadow-elevated: 0 12px 28px -4px rgba(0, 0, 0, 0.08), 0 4px 8px -2px rgba(0, 0, 0, 0.04);
+    --shadow-subtle: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+    --shadow-card: 0 4px 12px -2px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    --shadow-elevated: 0 12px 28px -4px rgba(0, 0, 0, 0.07), 0 4px 8px -2px rgba(0, 0, 0, 0.03);
+
+    /* Hero Gradient Accent */
+    --hero-gradient-start: #2563EB;
+    --hero-gradient-end: #6D28D9;
   }
 
-  /* Developer Mode — Dark macOS Workspace & Terminal */
-  [data-theme="developer"],
-  .theme-developer {
+  /* Dark Mode Theme */
+  [data-theme="dark"],
+  .theme-dark {
     --background: #090c10;
     --background-subtle: #0d1117;
     --background-card: #161b22;
@@ -70,6 +74,9 @@
     --shadow-subtle: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
     --shadow-card: 0 4px 12px -2px rgba(0, 0, 0, 0.6);
     --shadow-elevated: 0 12px 28px -4px rgba(0, 0, 0, 0.8);
+
+    --hero-gradient-start: #60a5fa;
+    --hero-gradient-end: #a78bfa;
   }
 
   html {
@@ -80,7 +87,7 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  [data-theme="developer"] {
+  [data-theme="dark"] {
     color-scheme: dark;
   }
 
@@ -124,6 +131,10 @@
   font-family: var(--font-mono), "SF Mono", Menlo, Monaco, Consolas, monospace;
 }
 
+.font-handwritten {
+  font-family: var(--font-handwritten), "Caveat", cursive;
+}
+
 .container-editorial {
   width: 100%;
   max-width: 1200px;
@@ -149,6 +160,30 @@
   padding-right: 1.5rem;
 }
 
+/* Hero-specific container — wider for editorial composition */
+.container-hero {
+  width: 100%;
+  max-width: 1360px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .container-hero {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container-hero {
+    padding-left: 3.5rem;
+    padding-right: 3.5rem;
+  }
+}
+
 /* Skip link for screen reader accessibility */
 .skip-to-content {
   position: absolute;
@@ -165,4 +200,71 @@
 
 .skip-to-content:focus {
   top: 1rem;
+}
+
+/* ── Hero Section Styles ───────────────────────────── */
+
+/* Gradient text for "Real Products." emphasis */
+.hero-gradient-text {
+  background: linear-gradient(135deg, var(--hero-gradient-start), var(--hero-gradient-end));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Hand-drawn underline SVG animation */
+.hero-underline path {
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+}
+
+.hero-underline-animate path {
+  animation: hero-draw-underline 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Scroll indicator bobbing */
+.scroll-indicator-bob {
+  animation: hero-scroll-bob 2.4s ease-in-out infinite;
+}
+
+/* ── Keyframes ───────────────────────────── */
+
+@keyframes hero-draw-underline {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes hero-scroll-bob {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+@keyframes hero-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Reduced motion overrides for hero */
+@media (prefers-reduced-motion: reduce) {
+  .hero-underline path {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+  }
+  .hero-underline-animate path {
+    animation: none;
+  }
+  .scroll-indicator-bob {
+    animation: none;
+  }
 }

@@ -25,9 +25,10 @@ describe("Performance & Accessibility Full Audit", () => {
     expect(screen.getByRole("navigation", { name: "Main navigation" })).toBeInTheDocument();
 
     // Verify accessible labels on action triggers
-    expect(screen.getByLabelText(/Open Command Palette/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Switch to Developer Mode/i)).toBeInTheDocument();
+    expect(screen.getAllByLabelText(/Switch to dark mode/i)[0]).toBeInTheDocument();
     expect(screen.getByLabelText(/Open mobile navigation/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/GitHub/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/LinkedIn/i)).toBeInTheDocument();
   });
 
   it("renders Footer with semantic contentinfo landmark and verifiable outbound links", () => {

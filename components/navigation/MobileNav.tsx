@@ -2,11 +2,19 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { X, ArrowUpRight, Terminal, Search } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { X, Github, Linkedin, Mail, Send } from "lucide-react";
 import { NavigationItem } from "@/data/navigation";
-import { useThemeMode } from "@/context/ThemeModeContext";
 import { cn } from "@/lib/utils/cn";
+
+/* Simple X/Twitter icon */
+function XTwitterIcon({ className }: { className?: string }) {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  );
+}
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -16,21 +24,6 @@ interface MobileNavProps {
 
 export function MobileNav({ isOpen, onClose, navigation }: MobileNavProps) {
   const pathname = usePathname();
-  const router = useRouter();
-  const { mode, setMode, setCommandPaletteOpen } = useThemeMode();
-
-  const isDevActive = pathname === "/dev" || mode === "developer";
-
-  const handleDevClick = () => {
-    onClose();
-    if (pathname === "/dev") {
-      setMode("normal");
-      router.push("/");
-    } else {
-      setMode("developer");
-      router.push("/dev");
-    }
-  };
 
   React.useEffect(() => {
     if (isOpen) {
@@ -47,23 +40,18 @@ export function MobileNav({ isOpen, onClose, navigation }: MobileNavProps) {
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs md:hidden animate-fade-in"
+      className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs md:hidden"
       onClick={onClose}
     >
       <div
-        className="fixed inset-y-0 right-0 w-full max-w-xs bg-[var(--background)] border-l border-[var(--border)] p-6 flex flex-col justify-between shadow-elevated animate-slide-in-right"
+        className="fixed inset-y-0 right-0 w-full max-w-xs bg-[var(--background)] border-l border-[var(--border)] p-6 flex flex-col justify-between shadow-elevated"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Drawer Header */}
         <div className="flex items-center justify-between pb-6 border-b border-[var(--border)]">
-          <div className="flex items-center gap-2">
-            <span className="font-display font-bold text-lg text-[var(--foreground)]">
-              RINKU
-            </span>
-            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[var(--background-subtle)] text-[var(--foreground-muted)] border border-[var(--border)]">
-              NITJ &apos;27
-            </span>
-          </div>
+          <span className="font-display font-bold text-lg text-[var(--foreground)]">
+            Menu
+          </span>
           <button
             onClick={onClose}
             className="p-1.5 rounded-[var(--radius-md)] text-[var(--foreground-muted)] hover:text-[var(--foreground)] hover:bg-[var(--background-subtle)] transition-colors cursor-pointer"
@@ -76,14 +64,17 @@ export function MobileNav({ isOpen, onClose, navigation }: MobileNavProps) {
         {/* Navigation List */}
         <nav className="flex-1 py-6 space-y-1 overflow-y-auto">
           {navigation.map((item) => {
-            const isActive = pathname === item.href;
+            const isActive =
+              item.href === "/"
+                ? pathname === "/"
+                : pathname.startsWith(item.href);
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={onClose}
                 className={cn(
-                  "flex items-center justify-between px-3 py-2.5 rounded-[var(--radius-md)] text-sm font-medium transition-colors",
+                  "flex items-center justify-between px-3 py-3 rounded-[var(--radius-md)] text-base font-medium transition-colors",
                   isActive
                     ? "bg-[var(--accent-subtle)] text-[var(--accent)] font-semibold"
                     : "text-[var(--foreground-muted)] hover:text-[var(--foreground)] hover:bg-[var(--background-subtle)]"
@@ -98,52 +89,54 @@ export function MobileNav({ isOpen, onClose, navigation }: MobileNavProps) {
           })}
         </nav>
 
-        {/* Action Buttons: ⌘K & Developer Mode */}
-        <div className="pt-4 border-t border-[var(--border)] space-y-2">
-          <button
-            onClick={() => {
-              onClose();
-              setCommandPaletteOpen(true);
-            }}
-            className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-[var(--radius-md)] bg-[var(--background-subtle)] text-sm font-mono text-[var(--foreground-muted)] hover:text-[var(--foreground)] border border-[var(--border)] hover:bg-[var(--border)] cursor-pointer transition-colors"
+        {/* Let's Connect CTA */}
+        <div className="pt-4 border-t border-[var(--border)] space-y-4">
+          <Link
+            href="/contact"
+            onClick={onClose}
+            className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-[var(--foreground)] text-[var(--background)] text-sm font-medium transition-all hover:opacity-90"
           >
-            <Search className="w-4 h-4 text-[var(--foreground-muted)]" />
-            <span>Command ⌘K</span>
-          </button>
+            <Send className="w-4 h-4" />
+            <span>Let&apos;s Connect →</span>
+          </Link>
 
-          <button
-            onClick={handleDevClick}
-            className={cn(
-              "w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-[var(--radius-md)] text-sm font-mono font-medium border cursor-pointer transition-colors",
-              isDevActive
-                ? "bg-[var(--accent-subtle)] text-[var(--accent)] border-[var(--accent-border)] font-semibold"
-                : "bg-[var(--background-subtle)] text-[var(--foreground)] border-[var(--border)] hover:bg-[var(--border)]"
-            )}
-          >
-            <Terminal className="w-4 h-4 text-[var(--accent)]" />
-            <span>{isDevActive ? "Exit Developer Mode" : "Launch Developer Mode"}</span>
-          </button>
-        </div>
-
-        {/* Contact Links */}
-        <div className="pt-4 flex items-center justify-between text-xs text-[var(--foreground-muted)] font-mono">
-          <a
-            href="https://github.com/rinkudiwakar"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1 hover:text-[var(--foreground)]"
-          >
-            GitHub <ArrowUpRight className="w-3 h-3" />
-          </a>
-          <a
-            href="https://linkedin.com/in/rinkudiwakar"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1 hover:text-[var(--foreground)]"
-          >
-            LinkedIn <ArrowUpRight className="w-3 h-3" />
-          </a>
-          <span>rinkudiwakar.me</span>
+          {/* Social Links */}
+          <div className="flex items-center justify-center gap-3 pt-2">
+            <a
+              href="https://github.com/rinkudiwakar"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-[var(--radius-md)] text-[var(--foreground-muted)] hover:text-[var(--foreground)] transition-colors"
+              aria-label="GitHub"
+            >
+              <Github className="w-5 h-5" />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/rinkudiwakar/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-[var(--radius-md)] text-[var(--foreground-muted)] hover:text-[var(--foreground)] transition-colors"
+              aria-label="LinkedIn"
+            >
+              <Linkedin className="w-5 h-5" />
+            </a>
+            <a
+              href="https://x.com/_mrdiwakar"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-[var(--radius-md)] text-[var(--foreground-muted)] hover:text-[var(--foreground)] transition-colors"
+              aria-label="X (Twitter)"
+            >
+              <XTwitterIcon className="w-5 h-5" />
+            </a>
+            <a
+              href="mailto:rinkudiwakar.dev@gmail.com"
+              className="p-2 rounded-[var(--radius-md)] text-[var(--foreground-muted)] hover:text-[var(--foreground)] transition-colors"
+              aria-label="Email"
+            >
+              <Mail className="w-5 h-5" />
+            </a>
+          </div>
         </div>
       </div>
     </div>

@@ -146,6 +146,6 @@ describe("Content Architecture Validation Suite", () => {
     expect(future.principles.length).toBeGreaterThanOrEqual(3);
 
     const nav = getNavigation();
-    expect(nav.length).toBeGreaterThanOrEqual(5);
+    expect(nav.length).toBeGreaterThanOrEqual(4);
   });
 });

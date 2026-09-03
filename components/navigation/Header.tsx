@@ -2,56 +2,41 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { Menu, Terminal, Search } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { Menu, Github, Linkedin, Mail, Sun, Moon, Send } from "lucide-react";
 import { useThemeMode } from "@/context/ThemeModeContext";
 import { MobileNav } from "@/components/navigation/MobileNav";
 import { navigation } from "@/data/navigation";
 import { cn } from "@/lib/utils/cn";
 
+/* Simple X/Twitter icon — Lucide doesn't include the new X logo */
+function XIcon({ className }: { className?: string }) {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  );
+}
+
 export function Header() {
   const pathname = usePathname();
-  const router = useRouter();
-  const { mode, setMode, setCommandPaletteOpen } = useThemeMode();
+  const { mode, toggleMode } = useThemeMode();
   const [isMobileNavOpen, setMobileNavOpen] = React.useState(false);
-
-  const isDevModeActive = pathname === "/dev" || mode === "developer";
-
-  const handleDevClick = () => {
-    if (pathname === "/dev") {
-      setMode("normal");
-      router.push("/");
-    } else {
-      setMode("developer");
-      router.push("/dev");
-    }
-  };
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full border-b border-[var(--border)] bg-[var(--background)]/85 backdrop-blur-md transition-colors duration-200">
-        <div className="container-editorial flex h-16 items-center justify-between">
-          {/* Brand Logo */}
-          <Link
-            href="/"
-            className="group flex items-center gap-2.5 focus-visible:outline-2 focus-visible:outline-offset-2 rounded-sm"
-            aria-label="Rinku Diwakar — Home"
-          >
-            <span className="font-display font-bold text-lg md:text-xl tracking-tight text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">
-              RINKU
-            </span>
-            <span className="hidden sm:inline-block text-[11px] font-mono text-[var(--foreground-subtle)] border-l border-[var(--border)] pl-2.5">
-              builder’s journal
-            </span>
-          </Link>
-
-          {/* Desktop Navigation Links */}
+      <header className="sticky top-0 z-40 w-full bg-[var(--background)]/85 backdrop-blur-md transition-colors duration-200">
+        <div className="container-hero flex h-16 md:h-[72px] items-center justify-between">
+          {/* Left — Navigation Links */}
           <nav
-            className="hidden md:flex items-center gap-1 lg:gap-2"
+            className="hidden md:flex items-center gap-1 lg:gap-1.5"
             aria-label="Main navigation"
           >
             {navigation.map((item) => {
-              const isActive = pathname === item.href;
+              const isActive =
+                item.href === "/"
+                  ? pathname === "/"
+                  : pathname.startsWith(item.href);
               return (
                 <Link
                   key={item.href}
@@ -59,61 +44,117 @@ export function Header() {
                   className={cn(
                     "px-3 py-1.5 rounded-[var(--radius-md)] text-sm font-medium transition-all duration-150 relative",
                     isActive
-                      ? "text-[var(--accent)] font-semibold"
-                      : "text-[var(--foreground-muted)] hover:text-[var(--foreground)] hover:bg-[var(--background-subtle)]"
+                      ? "text-[var(--foreground)] font-semibold"
+                      : "text-[var(--foreground-muted)] hover:text-[var(--foreground)]"
                   )}
                   aria-current={isActive ? "page" : undefined}
                 >
                   {item.label}
                   {isActive && (
-                    <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-[var(--accent)] rounded-full" />
+                    <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-[var(--foreground)] rounded-full" />
                   )}
                 </Link>
               );
             })}
           </nav>
 
-          {/* Action Tools: Command Palette & Developer Mode Toggle */}
-          <div className="flex items-center gap-2">
-            {/* ⌘K Trigger Button */}
-            <button
-              onClick={() => setCommandPaletteOpen(true)}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-[var(--radius-md)] bg-[var(--background-subtle)] hover:bg-[var(--border)] text-[var(--foreground-muted)] hover:text-[var(--foreground)] border border-[var(--border)] transition-colors cursor-pointer text-xs font-mono"
-              aria-label="Open Command Palette (Cmd + K)"
-              title="Open Command Palette (⌘K / Ctrl+K)"
+          {/* Center — "Let's Connect" Pill CTA */}
+          <div className="hidden md:flex items-center justify-center">
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-[var(--border-strong)] bg-[var(--background-card)] text-sm font-medium text-[var(--foreground)] hover:bg-[var(--background-subtle)] hover:border-[var(--foreground-subtle)] transition-all duration-200 shadow-[var(--shadow-subtle)]"
             >
-              <Search className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">⌘K</span>
-            </button>
+              <Send className="w-3.5 h-3.5" />
+              <span>Let&apos;s Connect</span>
+              <span aria-hidden="true">→</span>
+            </Link>
+          </div>
 
-            {/* Developer Mode Toggle & Launcher */}
-            <button
-              onClick={handleDevClick}
-              className={cn(
-                "flex items-center gap-1.5 px-2.5 py-1.5 rounded-[var(--radius-md)] border text-xs font-mono transition-all cursor-pointer",
-                isDevModeActive
-                  ? "bg-[var(--accent-subtle)] text-[var(--accent)] border-[var(--accent-border)] font-semibold shadow-xs"
-                  : "bg-[var(--background-subtle)] hover:bg-[var(--border)] text-[var(--foreground-muted)] hover:text-[var(--foreground)] border-[var(--border)]"
-              )}
-              aria-label={
-                isDevModeActive
-                  ? "Switch to Normal Mode"
-                  : "Switch to Developer Mode"
-              }
-              title={
-                isDevModeActive
-                  ? "Exit to Normal Story Mode"
-                  : "Launch Developer Mode (macOS Terminal & IDE)"
-              }
+          {/* Right — Social Icons + Theme Toggle */}
+          <div className="hidden md:flex items-center gap-1">
+            <a
+              href="https://github.com/rinkudiwakar"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-[var(--radius-md)] text-[var(--foreground-muted)] hover:text-[var(--foreground)] hover:bg-[var(--background-subtle)] transition-colors"
+              aria-label="GitHub"
             >
-              <Terminal className="w-3.5 h-3.5 text-[var(--accent)]" />
-              <span className="font-semibold">DEV</span>
-            </button>
+              <Github className="w-[18px] h-[18px]" />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/rinkudiwakar/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-[var(--radius-md)] text-[var(--foreground-muted)] hover:text-[var(--foreground)] hover:bg-[var(--background-subtle)] transition-colors"
+              aria-label="LinkedIn"
+            >
+              <Linkedin className="w-[18px] h-[18px]" />
+            </a>
+            <a
+              href="https://x.com/_mrdiwakar"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-[var(--radius-md)] text-[var(--foreground-muted)] hover:text-[var(--foreground)] hover:bg-[var(--background-subtle)] transition-colors"
+              aria-label="X (Twitter)"
+            >
+              <XIcon className="w-[18px] h-[18px]" />
+            </a>
+            <a
+              href="mailto:rinkudiwakar.dev@gmail.com"
+              className="p-2 rounded-[var(--radius-md)] text-[var(--foreground-muted)] hover:text-[var(--foreground)] hover:bg-[var(--background-subtle)] transition-colors"
+              aria-label="Email"
+            >
+              <Mail className="w-[18px] h-[18px]" />
+            </a>
 
-            {/* Mobile Menu Button */}
+            {/* Divider */}
+            <div className="w-px h-5 bg-[var(--border)] mx-1" aria-hidden="true" />
+
+            {/* Theme Toggle Pill Switch */}
+            <button
+              onClick={toggleMode}
+              className="w-11 h-6 rounded-full border border-[var(--border-strong)] bg-[var(--background-card)] p-0.5 flex items-center transition-colors cursor-pointer ml-1"
+              aria-label={mode === "light" ? "Switch to dark mode" : "Switch to light mode"}
+              title={mode === "light" ? "Dark mode" : "Light mode"}
+            >
+              <span
+                className={cn(
+                  "w-4 h-4 rounded-full bg-[var(--foreground)] text-[var(--background)] flex items-center justify-center transition-transform duration-200",
+                  mode === "dark" ? "translate-x-5" : "translate-x-0.5"
+                )}
+              >
+                {mode === "light" ? (
+                  <Sun className="w-2.5 h-2.5 stroke-[2.5]" />
+                ) : (
+                  <Moon className="w-2.5 h-2.5 stroke-[2.5]" />
+                )}
+              </span>
+            </button>
+          </div>
+
+          {/* Mobile — Hamburger + Theme Toggle */}
+          <div className="flex md:hidden items-center gap-2">
+            <button
+              onClick={toggleMode}
+              className="w-10 h-5 rounded-full border border-[var(--border-strong)] bg-[var(--background-card)] p-0.5 flex items-center cursor-pointer"
+              aria-label={mode === "light" ? "Switch to dark mode" : "Switch to light mode"}
+            >
+              <span
+                className={cn(
+                  "w-3.5 h-3.5 rounded-full bg-[var(--foreground)] text-[var(--background)] flex items-center justify-center transition-transform duration-200",
+                  mode === "dark" ? "translate-x-4.5" : "translate-x-0.5"
+                )}
+              >
+                {mode === "light" ? (
+                  <Sun className="w-2 h-2" />
+                ) : (
+                  <Moon className="w-2 h-2" />
+                )}
+              </span>
+            </button>
             <button
               onClick={() => setMobileNavOpen(true)}
-              className="md:hidden p-2 rounded-[var(--radius-md)] bg-[var(--background-subtle)] text-[var(--foreground-muted)] hover:text-[var(--foreground)] border border-[var(--border)] cursor-pointer"
+              className="p-2 rounded-[var(--radius-md)] bg-[var(--background-subtle)] text-[var(--foreground-muted)] hover:text-[var(--foreground)] border border-[var(--border)] cursor-pointer"
               aria-label="Open mobile navigation"
             >
               <Menu className="w-4 h-4" />

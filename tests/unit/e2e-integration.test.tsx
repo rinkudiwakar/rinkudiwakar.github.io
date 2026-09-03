@@ -22,8 +22,8 @@ describe("Production QA Integration Audit", () => {
     );
 
     // 00 Arrival & 01 Hero
-    expect(screen.getAllByText("Rinku Diwakar").length).toBeGreaterThanOrEqual(1);
-    expect(screen.getByText("“IT ACTUALLY WORKS.”")).toBeInTheDocument();
+    expect(screen.getAllByText(/Real Products/i).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getByText(/View My Work/i)).toBeInTheDocument();
 
     // 02 Now
     expect(screen.getAllByText(/Pradrix/i).length).toBeGreaterThanOrEqual(1);
