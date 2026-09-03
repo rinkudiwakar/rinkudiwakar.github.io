@@ -11,9 +11,12 @@ export function AboutPortrait({ hasEntered = true }: AboutPortraitProps) {
   return (
     <div className="relative flex items-center justify-center select-none w-full max-w-[500px]">
       
-      {/* ── 1. BACKGROUND CIRCUIT TRACES (FAINT SCHEMATIC LINES BEHIND PHOTO) ── */}
+      {/* ── 1. BACKGROUND CIRCUIT TRACES (SUBTLE FADE-IN WITH PHOTO, ZERO CONTINUOUS MOVEMENT) ── */}
       <svg
-        className="absolute inset-0 w-full h-full text-[var(--foreground)] opacity-[0.08] dark:opacity-[0.14] pointer-events-none -z-10"
+        className={`absolute inset-0 w-full h-full text-[var(--foreground)] pointer-events-none -z-10 transition-opacity duration-1000 ease-out ${
+          hasEntered ? "opacity-[0.08] dark:opacity-[0.14]" : "opacity-0"
+        }`}
+        style={{ transitionDelay: "300ms" }}
         viewBox="0 0 480 380"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -36,9 +39,12 @@ export function AboutPortrait({ hasEntered = true }: AboutPortraitProps) {
       {/* ── 2. FRAMED POLAROID PHOTOGRAPH ── */}
       <div className="relative flex items-center">
         <div
-          className={`relative group p-3 sm:p-3.5 bg-[#14171F] text-white border border-[#232734] rounded-sm shadow-[0_16px_40px_rgba(0,0,0,0.18)] dark:shadow-[0_20px_48px_rgba(0,0,0,0.6)] -rotate-2 hover:rotate-0 hover:scale-[1.015] transition-all duration-500 ease-out w-[270px] sm:w-[300px] md:w-[325px] ${
-            hasEntered ? "opacity-100 scale-100" : "opacity-0 scale-[0.97]"
+          className={`relative group p-3 sm:p-3.5 bg-[#14171F] text-white border border-[#232734] rounded-sm shadow-[0_16px_40px_rgba(0,0,0,0.18)] dark:shadow-[0_20px_48px_rgba(0,0,0,0.6)] transition-all duration-900 ease-out w-[270px] sm:w-[300px] md:w-[325px] ${
+            hasEntered
+              ? "opacity-100 scale-100 translate-y-0 -rotate-2"
+              : "opacity-0 scale-[0.96] translate-y-5 rotate-0"
           }`}
+          style={{ transitionDelay: "150ms" }}
         >
           {/* Masking tape piece at top center */}
           <div
@@ -65,18 +71,24 @@ export function AboutPortrait({ hasEntered = true }: AboutPortraitProps) {
           </div>
         </div>
 
-        {/* ── 3. HANDWRITTEN ANNOTATION & ARROW (POSITIONED TO THE RIGHT OF PHOTO) ── */}
+        {/* ── 3. HANDWRITTEN ANNOTATION & ARROW DRAWING (ON THE RIGHT OF PHOTO) ── */}
         <div className="hidden sm:flex flex-col items-start pl-4 md:pl-5 -mt-16 pointer-events-none select-none z-10">
+          {/* Handwritten text write-on / fade */}
           <span
-            className="font-handwritten text-[15px] sm:text-base md:text-[17px] text-[var(--foreground)] leading-tight tracking-wide font-medium"
-            style={{ fontFamily: "'Caveat', 'Kalam', 'Segoe Print', cursive" }}
+            className={`font-handwritten text-[15px] sm:text-base md:text-[17px] text-[var(--foreground)] leading-tight tracking-wide font-medium transition-all duration-600 ease-out ${
+              hasEntered ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-2.5 scale-95"
+            }`}
+            style={{
+              fontFamily: "'Caveat', 'Kalam', 'Segoe Print', cursive",
+              transitionDelay: "650ms",
+            }}
           >
             Always curious.
             <br />
             Always building.
           </span>
 
-          {/* Curved hand-drawn arrow pointing LEFT at the photo */}
+          {/* Curved hand-drawn arrow with strokeDashoffset draw animation */}
           <svg
             width="46"
             height="40"
@@ -85,13 +97,19 @@ export function AboutPortrait({ hasEntered = true }: AboutPortraitProps) {
             className="text-[var(--foreground)] opacity-75 mt-1 ml-1"
             aria-hidden="true"
           >
+            {/* Arrow Stem curve */}
             <path
               d="M 32 4 C 35 15, 26 27, 8 31"
               stroke="currentColor"
               strokeWidth="1.5"
               strokeLinecap="round"
               fill="none"
+              strokeDasharray="60"
+              strokeDashoffset={hasEntered ? "0" : "60"}
+              className="transition-all duration-700 ease-out"
+              style={{ transitionDelay: "850ms" }}
             />
+            {/* Arrowhead */}
             <path
               d="M 15 25 L 7 31 L 14 36"
               stroke="currentColor"
@@ -99,6 +117,10 @@ export function AboutPortrait({ hasEntered = true }: AboutPortraitProps) {
               strokeLinecap="round"
               strokeLinejoin="round"
               fill="none"
+              strokeDasharray="25"
+              strokeDashoffset={hasEntered ? "0" : "25"}
+              className="transition-all duration-300 ease-out"
+              style={{ transitionDelay: "1400ms" }}
             />
           </svg>
         </div>
