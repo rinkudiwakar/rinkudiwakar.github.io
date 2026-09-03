@@ -20,26 +20,33 @@ export function HeroAnnotation() {
         </div>
       </div>
 
-      {/* Curved hand-drawn arrow pointing toward MacBook screen */}
+      {/* Hand-drawn arrow from Product → MacBook corner */}
       <svg
-        width="34"
-        height="38"
-        viewBox="0 0 34 38"
+        width="52"
+        height="58"
+        viewBox="0 0 52 58"
         fill="none"
-        className="text-[var(--foreground)] opacity-70 mt-1 translate-y-0.5"
+        className="text-[var(--foreground)] opacity-65"
         aria-hidden="true"
       >
+        {/* Curved arrow stem */}
         <path
-          d="M8 2 C6 12, 4 22, 10 28 C12 30, 16 32, 22 34"
+          d="M 40 3
+            C 37 13, 34 23, 34 31
+            C 34 39, 29 46, 21 51"
           stroke="currentColor"
-          strokeWidth="1.75"
+          strokeWidth="1.8"
           strokeLinecap="round"
           fill="none"
         />
+
+        {/* Arrowhead */}
         <path
-          d="M16 30 L22 34 L23 27"
+          d="M 27 47
+            L 21 51
+            L 28 53"
           stroke="currentColor"
-          strokeWidth="1.75"
+          strokeWidth="1.8"
           strokeLinecap="round"
           strokeLinejoin="round"
           fill="none"
