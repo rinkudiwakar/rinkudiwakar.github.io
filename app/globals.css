@@ -2,13 +2,13 @@
 
 @layer base {
   :root {
-    /* Normal Mode — Warm Light Editorial Foundation (Sampled from hero_section_ui_example.png) */
-    --background: #F6F1EB;
-    --background-subtle: #EDE7DE;
-    --background-card: #FAF7F2;
+    /* Normal Mode — Pure White Editorial Foundation */
+    --background: #FFFFFF;
+    --background-subtle: #F8F8F8;
+    --background-card: #FFFFFF;
     --foreground: #141416;
-    --foreground-muted: #54524F;
-    --foreground-subtle: #8A857D;
+    --foreground-muted: #55575E;
+    --foreground-subtle: #8A8D96;
     
     /* Accent System — Editorial Blue to Purple */
     --accent: #2563EB;
@@ -22,9 +22,9 @@
     --error: #B91C1C;
 
     /* Borders and Dividers */
-    --border: #E2DBD0;
-    --border-subtle: #EFE8DE;
-    --border-strong: #C8BFB2;
+    --border: #E5E5E5;
+    --border-subtle: #F0F0F0;
+    --border-strong: #D4D4D4;
 
     /* Focus Ring */
     --ring: rgba(37, 99, 235, 0.4);

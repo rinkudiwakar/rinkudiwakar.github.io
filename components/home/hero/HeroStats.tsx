@@ -33,13 +33,11 @@ const stats: StatItem[] = [
 export function HeroStats() {
   return (
     <div className="hero-stats select-none">
-      <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-4 sm:gap-0 sm:divide-x sm:divide-[var(--border)]">
-        {stats.map((stat, idx) => (
+      <div className="flex flex-wrap sm:flex-nowrap items-center gap-4 sm:gap-0 sm:divide-x sm:divide-[var(--border)]">
+        {stats.map((stat) => (
           <div
             key={stat.label}
-            className={`flex flex-col items-center sm:items-start ${
-              idx === 0 ? "sm:pr-4 xl:sm:pr-6" : idx === stats.length - 1 ? "sm:pl-4 xl:sm:pl-6" : "sm:px-4 xl:sm:px-6"
-            }`}
+            className="flex flex-col items-center sm:items-start px-3 sm:px-5 lg:px-6 first:pl-0 last:pr-0"
           >
             <div className="flex items-center gap-2 mb-1">
               <span className="shrink-0" aria-hidden="true">
