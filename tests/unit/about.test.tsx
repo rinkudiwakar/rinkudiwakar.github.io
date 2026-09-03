@@ -37,13 +37,17 @@ describe("AboutSection", () => {
     expect(screen.getAllByText("SOFTWARE")[0]).toBeInTheDocument();
     expect(screen.getAllByText("AI + HARDWARE")[0]).toBeInTheDocument();
 
-    // Key Statement
+    // Key Statement & Label
+    expect(screen.getByText("WHERE THEY MEET")).toBeInTheDocument();
     expect(
       screen.getByText(/I didn't choose between hardware and software\./i)
     ).toBeInTheDocument();
     expect(screen.getByText(/I started connecting them\./i)).toBeInTheDocument();
 
-    // CTA
+    // Supporting Line & CTA
+    expect(
+      screen.getByText(/Want to know the rest of the story\?/i)
+    ).toBeInTheDocument();
     const ctaLink = screen.getByRole("link", { name: /More About Me/i });
     expect(ctaLink).toBeInTheDocument();
     expect(ctaLink).toHaveAttribute("href", "/about");
