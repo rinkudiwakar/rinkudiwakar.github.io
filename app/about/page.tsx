@@ -1,16 +1,28 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, GraduationCap, Compass, ShieldCheck, Code, Wrench, Sparkles } from "lucide-react";
+import {
+  ArrowLeft,
+  GraduationCap,
+  Compass,
+  ShieldCheck,
+} from "lucide-react";
 import { Section } from "@/components/ui/Section";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import { getProfile, getProofForContent } from "@/lib/content";
 import { constructMetadata } from "@/lib/seo/metadata";
+import { AboutIntro } from "@/components/home/about/AboutIntro";
+import { AboutPortrait } from "@/components/home/about/AboutPortrait";
+import { AboutJourney } from "@/components/home/about/AboutJourney";
+import { AboutTransition } from "@/components/home/about/AboutTransition";
+import { AboutCapabilities } from "@/components/home/about/AboutCapabilities";
+import { AboutProof } from "@/components/home/about/AboutProof";
+import { AboutManifesto } from "@/components/home/about/AboutManifesto";
 
 export const metadata: Metadata = constructMetadata({
   title: "About — Rinku Diwakar",
   description:
-    "Builder, electrical engineer from NIT Jalandhar, and founder of Pradrix. Dedicated to turning 'What if?' into 'It actually works.'",
+    "Builder, electrical engineer from NIT Jalandhar, and founder of Pradrix. Dedicated to turning ideas into real-world hardware, software, and AI products.",
   canonicalUrl: "/about",
 });
 
@@ -19,41 +31,63 @@ export default function AboutPage() {
   const proofs = getProofForContent("/about");
 
   return (
-    <main id="main-content" className="flex-1 flex flex-col">
-      {/* Header Section */}
-      <Section className="pt-12 pb-16 border-b border-[var(--border)]">
-        <div className="space-y-6">
+    <main id="main-content" className="flex-1 flex flex-col bg-[var(--background)]">
+      {/* ── Top Navigation & Back Link ── */}
+      <Section className="pt-10 pb-6 border-b border-[var(--border)]">
+        <div className="space-y-4">
           <Link
             href="/"
-            className="inline-flex items-center gap-1.5 text-xs font-mono text-[var(--foreground-muted)] hover:text-[var(--foreground)] transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-mono text-[var(--foreground-muted)] hover:text-[var(--foreground)] transition-colors group"
           >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Back to Journal</span>
+            <ArrowLeft className="w-3.5 h-3.5 transition-transform duration-200 group-hover:-translate-x-1 text-[var(--accent)]" />
+            <span>Back to Homepage</span>
           </Link>
 
-          <div className="max-w-3xl space-y-4">
-            <div className="flex items-center gap-2">
-              <Badge variant="accent">BIOGRAPHY & PROFILE</Badge>
-              <Badge variant="mono">NIT Jalandhar EE</Badge>
-            </div>
-
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold tracking-tight text-[var(--foreground)]">
-              Rinku Diwakar
-            </h1>
-
-            <p className="text-2xl text-[var(--accent)] font-display font-medium">
-              “{profile.tagline}”
-            </p>
-
-            <p className="text-lg sm:text-xl text-[var(--foreground-muted)] font-body leading-relaxed max-w-2xl">
-              {profile.coreIdentity}
-            </p>
+          <div className="flex items-center gap-2">
+            <Badge variant="accent">THE COMPLETE STORY</Badge>
+            <Badge variant="mono">NIT Jalandhar EE</Badge>
           </div>
         </div>
       </Section>
 
-      {/* Philosophy & The Builder Loop */}
+      {/* ── 1. The Opening Narrative & Framed Portrait ── */}
+      <Section className="py-12 sm:py-16 border-b border-[var(--border)]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+          <div className="lg:col-span-7 flex flex-col justify-center">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold tracking-tight text-[var(--foreground)] mb-6">
+              Rinku Diwakar
+            </h1>
+            <AboutIntro />
+          </div>
+
+          <div className="lg:col-span-5 flex justify-center lg:justify-end pt-6 lg:pt-0">
+            <AboutPortrait />
+          </div>
+        </div>
+      </Section>
+
+      {/* ── 2. Full 5-Stage Evolution Timeline ── */}
+      <Section className="py-16 border-b border-[var(--border)]">
+        <AboutJourney />
+      </Section>
+
+      {/* ── 3. Systems Thinking Transition & Schematic ── */}
       <Section className="py-16 border-b border-[var(--border)] bg-[var(--background-subtle)]">
+        <AboutTransition />
+      </Section>
+
+      {/* ── 4. Technical Repertoire: 4 Capability Cards ── */}
+      <Section className="py-16 border-b border-[var(--border)]">
+        <AboutCapabilities />
+      </Section>
+
+      {/* ── 5. Projects as Proof: Kavach & NanoTrade Evidence ── */}
+      <Section className="py-16 border-b border-[var(--border)] bg-[var(--background-subtle)]">
+        <AboutProof />
+      </Section>
+
+      {/* ── 6. Core Philosophy & The Recursive Builder Loop ── */}
+      <Section className="py-16 border-b border-[var(--border)]">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
           <div className="space-y-4">
             <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[var(--accent)] font-semibold">
@@ -83,8 +117,8 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      {/* Academic Foundation: NIT Jalandhar */}
-      <Section className="py-16 border-b border-[var(--border)]">
+      {/* ── 7. Academic Foundation: NIT Jalandhar Credential ── */}
+      <Section className="py-16 border-b border-[var(--border)] bg-[var(--background-subtle)]">
         <div className="space-y-8 max-w-3xl">
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[var(--accent)] font-semibold">
@@ -113,7 +147,7 @@ export default function AboutPage() {
 
           {/* Institutional Proof Record */}
           {proofs.length > 0 && (
-            <div className="p-4 rounded-[var(--radius-md)] bg-[var(--background-subtle)] border border-[var(--border-subtle)] flex items-center justify-between text-xs font-mono">
+            <div className="p-4 rounded-[var(--radius-md)] bg-[var(--background)] border border-[var(--border-subtle)] flex items-center justify-between text-xs font-mono">
               <span className="text-[var(--foreground-muted)] flex items-center gap-1.5">
                 <ShieldCheck className="w-4 h-4 text-[var(--success)]" />
                 Verified Institutional Degree Credential
@@ -131,65 +165,9 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      {/* Technical Interests */}
-      <Section className="py-16 bg-[var(--background-subtle)]">
-        <div className="space-y-8">
-          <div className="max-w-2xl space-y-2">
-            <span className="text-xs font-mono uppercase tracking-widest text-[var(--accent)] font-semibold">
-              Focus Areas
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-display font-bold text-[var(--foreground)]">
-              What I spend my attention on
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card className="p-6 space-y-3 bg-[var(--background-card)] border-[var(--border-strong)]">
-              <div className="flex items-center gap-2 text-xs font-mono text-[var(--accent)] uppercase font-semibold">
-                <Code className="w-4 h-4" />
-                <span>Technical</span>
-              </div>
-              <ul className="space-y-2 text-xs font-mono text-[var(--foreground-muted)]">
-                {profile.interests.technical.map((item) => (
-                  <li key={item} className="flex items-center gap-1.5">
-                    <span className="text-[var(--accent)]">·</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </Card>
-
-            <Card className="p-6 space-y-3 bg-[var(--background-card)] border-[var(--border-strong)]">
-              <div className="flex items-center gap-2 text-xs font-mono text-[var(--accent)] uppercase font-semibold">
-                <Wrench className="w-4 h-4" />
-                <span>Personal</span>
-              </div>
-              <ul className="space-y-2 text-xs font-mono text-[var(--foreground-muted)]">
-                {profile.interests.personal.map((item) => (
-                  <li key={item} className="flex items-center gap-1.5">
-                    <span className="text-[var(--accent)]">·</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </Card>
-
-            <Card className="p-6 space-y-3 bg-[var(--background-card)] border-[var(--border-strong)]">
-              <div className="flex items-center gap-2 text-xs font-mono text-[var(--accent)] uppercase font-semibold">
-                <Sparkles className="w-4 h-4" />
-                <span>Early Roots</span>
-              </div>
-              <ul className="space-y-2 text-xs font-mono text-[var(--foreground-muted)]">
-                {profile.interests.early.map((item) => (
-                  <li key={item} className="flex items-center gap-1.5">
-                    <span className="text-[var(--accent)]">·</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </Card>
-          </div>
-        </div>
+      {/* ── 8. The Common Thread & Personal Manifesto ── */}
+      <Section className="py-16">
+        <AboutManifesto />
       </Section>
     </main>
   );
