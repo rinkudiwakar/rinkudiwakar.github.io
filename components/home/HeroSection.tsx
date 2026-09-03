@@ -56,25 +56,6 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* ═══════════════════════════════════════════════════════════════════
-          SCREEN 2: Directly Below That
-          MacBook Showcase with "From Idea -> Code -> Product" pointing to it
-      ═══════════════════════════════════════════════════════════════════ */}
-      <div className="border-t border-[var(--border-subtle)] pt-6 sm:pt-10 lg:pt-12 pb-16 sm:pb-24">
-        <div className="container-hero w-full flex justify-center lg:justify-end">
-          {/* MacBook with Annotation positioned safely above */}
-          <div className="relative pt-20 sm:pt-24 w-full max-w-[660px] xl:max-w-[720px] 2xl:max-w-[760px]">
-            {/* "From Idea -> Code -> Product" text placed safely above laptop */}
-            <div className="hidden lg:block absolute top-0 right-6 sm:right-10 xl:right-14 z-20">
-              <HeroAnnotation />
-            </div>
-
-            {/* Animated MacBook Pro Showcase */}
-            <MacBookShowcase />
-          </div>
-        </div>
-      </div>
-
       {/* Subtle bottom border */}
       <div className="w-full h-px bg-[var(--border)]" aria-hidden="true" />
     </section>

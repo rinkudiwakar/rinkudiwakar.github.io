@@ -2,6 +2,7 @@ import React from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { NowSection } from "@/components/home/NowSection";
+import { CurrentlyBuildingSection } from "@/components/home/CurrentlyBuildingSection";
 import { Arrival } from "@/components/home/Arrival";
 
 describe("Hero & Now Sections", () => {
@@ -14,13 +15,15 @@ describe("Hero & Now Sections", () => {
     expect(screen.getByText("Active Focus Streams")).toBeInTheDocument();
   });
 
-  it("renders Arrival wrapper without crashing", () => {
-    render(
-      <Arrival>
-        <div data-testid="arrival-child">Content</div>
-      </Arrival>
-    );
+  it("renders CurrentlyBuildingSection with Pradrix introduction and visit link", () => {
+    render(<CurrentlyBuildingSection />);
 
-    expect(screen.getByTestId("arrival-child")).toBeInTheDocument();
+    expect(screen.getByText(/01 \/ CURRENTLY BUILDING/i)).toBeInTheDocument();
+    expect(screen.getByText("PRADRIX")).toBeInTheDocument();
+    expect(screen.getByText(/I'm currently building Pradrix\./i)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Visit Pradrix/i })).toHaveAttribute(
+      "href",
+      "https://pradrix.com/"
+    );
   });
 });
