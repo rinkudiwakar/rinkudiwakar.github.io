@@ -2,7 +2,7 @@ import * as React from "react";
 
 export function HeroIntro() {
   return (
-    <div className="flex items-center gap-3 -rotate-2 select-none">
+    <div className="flex items-center gap-3 -rotate-2 select-none hero-intro-reveal">
       <span
         className="font-handwritten text-3xl sm:text-4xl text-[var(--foreground)] tracking-wide font-medium"
         style={{ fontFamily: "'Caveat', 'Kalam', 'Segoe Print', cursive" }}
@@ -16,7 +16,7 @@ export function HeroIntro() {
         height="30"
         viewBox="0 0 34 30"
         fill="none"
-        className="text-[var(--foreground)] opacity-75 translate-y-1"
+        className="hero-intro-arrow-draw text-[var(--foreground)] opacity-75 translate-y-1"
         aria-hidden="true"
       >
         <path

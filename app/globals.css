@@ -221,7 +221,7 @@
   top: 1rem;
 }
 
-/* ── Hero Section Styles ───────────────────────────── */
+/* ── Hero Section Animations ───────────────────────────── */
 
 /* Gradient text for "Real Products." emphasis */
 .hero-gradient-text {
@@ -231,22 +231,78 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* Hand-drawn underline SVG animation */
+/* 0ms: Header Entrance */
+.animate-header-entrance {
+  animation: header-reveal-anim 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes header-reveal-anim {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 150ms: Left Portrait / Artwork Reveal */
+.hero-portrait-reveal {
+  animation: hero-portrait-anim 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+}
+
+@keyframes hero-portrait-anim {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 250ms: "Hey, I'm Rinku" Intro */
+.hero-intro-reveal {
+  animation: hero-fade-slide 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both;
+}
+
+/* Hand-drawn arrow in HeroIntro */
+.hero-intro-arrow-draw path {
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+  animation: hero-draw-arrow-anim 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.32s forwards;
+}
+
+@keyframes hero-draw-arrow-anim {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* 350ms, 450ms, 550ms: Headline Lines Staggered */
+.hero-headline-line-1 {
+  animation: hero-fade-slide 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
+}
+
+.hero-headline-line-2 {
+  animation: hero-fade-slide 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.45s both;
+}
+
+.hero-headline-line-3 {
+  animation: hero-fade-slide 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.55s both;
+}
+
+/* 650ms: Hand-drawn Underline Under "Real Products." */
 .hero-underline path {
   stroke-dasharray: 300;
   stroke-dashoffset: 300;
 }
 
 .hero-underline-animate path {
-  animation: hero-draw-underline 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: hero-draw-underline 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.65s forwards;
 }
-
-/* Scroll indicator bobbing */
-.scroll-indicator-bob {
-  animation: hero-scroll-bob 2.4s ease-in-out infinite;
-}
-
-/* ── Keyframes ───────────────────────────── */
 
 @keyframes hero-draw-underline {
   to {
@@ -254,16 +310,22 @@
   }
 }
 
-@keyframes hero-scroll-bob {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(6px);
-  }
+/* 700ms: Description Reveal */
+.hero-desc-reveal {
+  animation: hero-fade-slide 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.7s both;
 }
 
-@keyframes hero-fade-in {
+/* 800ms: CTA Buttons Reveal */
+.hero-actions-reveal {
+  animation: hero-fade-slide 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.8s both;
+}
+
+/* 900ms: Statistics Reveal */
+.hero-stats-reveal {
+  animation: hero-fade-slide 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.9s both;
+}
+
+@keyframes hero-fade-slide {
   from {
     opacity: 0;
     transform: translateY(16px);
@@ -274,63 +336,76 @@
   }
 }
 
-/* Laptop floating and interactive animations */
-.laptop-floating {
-  animation: laptop-float 6s ease-in-out infinite;
+/* Hand-drawn Arrow Draw In (HeroAnnotation) */
+.hero-annotation-stem-draw {
+  stroke-dasharray: 85;
+  stroke-dashoffset: 85;
+  animation: hero-draw-stem 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.6s forwards;
 }
 
-@keyframes laptop-float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
+.hero-annotation-head-draw {
+  stroke-dasharray: 35;
+  stroke-dashoffset: 35;
+  animation: hero-draw-head 0.4s cubic-bezier(0.22, 1, 0.36, 1) 1.25s forwards;
 }
 
-@keyframes laptop-pulse-dot {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.4;
-    transform: scale(0.85);
-  }
-}
-
-.laptop-pulse-dot {
-  animation: laptop-pulse-dot 2s ease-in-out infinite;
-}
-
-@keyframes laptop-shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-.laptop-shimmer-text {
-  background: linear-gradient(90deg, #38BDF8 0%, #A855F7 50%, #38BDF8 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: laptop-shimmer 4s linear infinite;
-}
-
-/* Reduced motion overrides for hero */
-@media (prefers-reduced-motion: reduce) {
-  .hero-underline path {
-    stroke-dasharray: none;
+@keyframes hero-draw-stem {
+  to {
     stroke-dashoffset: 0;
   }
-  .hero-underline-animate path {
-    animation: none;
+}
+
+@keyframes hero-draw-head {
+  to {
+    stroke-dashoffset: 0;
   }
-  .scroll-indicator-bob {
-    animation: none;
+}
+
+/* Continuous Scroll Indicator: Only the Downward Arrow Bobbing (translateY 0 -> 4px -> 0) */
+.scroll-arrow-bob {
+  animation: scroll-arrow-subtle-bob 1.6s ease-in-out infinite;
+}
+
+@keyframes scroll-arrow-subtle-bob {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+/* Bottom-Left Next.js Dev Badge Micro-Interaction (Requirement 12) */
+nextjs-portal,
+[data-nextjs-toast],
+div[data-next-badge] {
+  transition: transform 0.2s ease;
+}
+nextjs-portal:hover,
+[data-nextjs-toast]:hover,
+div[data-next-badge]:hover {
+  transform: translateY(-1px) scale(1.02);
+}
+
+/* ── Accessibility: Reduced Motion (Requirement 15) ───────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .hero-portrait-reveal,
+  .hero-intro-reveal,
+  .hero-headline-line-1,
+  .hero-headline-line-2,
+  .hero-headline-line-3,
+  .hero-desc-reveal,
+  .hero-actions-reveal,
+  .hero-stats-reveal,
+  .animate-header-entrance,
+  .scroll-arrow-bob,
+  .hero-underline-animate path,
+  .hero-intro-arrow-draw path,
+  .hero-annotation-stem-draw,
+  .hero-annotation-head-draw {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    stroke-dashoffset: 0 !important;
   }
 }

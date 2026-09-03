@@ -37,6 +37,7 @@ export function HeroAnnotation() {
           stroke="currentColor"
           strokeWidth="1.8"
           strokeLinecap="round"
+          className="hero-annotation-stem-draw"
           fill="none"
         />
 
@@ -49,6 +50,7 @@ export function HeroAnnotation() {
           strokeWidth="1.8"
           strokeLinecap="round"
           strokeLinejoin="round"
+          className="hero-annotation-head-draw"
           fill="none"
         />
       </svg>

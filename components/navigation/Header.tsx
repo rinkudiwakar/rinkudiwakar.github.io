@@ -25,7 +25,7 @@ export function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full bg-[var(--background)]/85 backdrop-blur-md transition-colors duration-200">
+      <header className="sticky top-0 z-40 w-full bg-[var(--background)]/85 backdrop-blur-md transition-colors duration-200 animate-header-entrance">
         <div className="container-hero flex h-16 md:h-[72px] items-center justify-between">
           {/* Left — Navigation Links */}
           <nav
@@ -42,7 +42,7 @@ export function Header() {
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "px-3 py-1.5 rounded-[var(--radius-md)] text-sm font-medium transition-all duration-150 relative",
+                    "group px-3 py-1.5 rounded-[var(--radius-md)] text-sm font-medium transition-all duration-150 relative",
                     isActive
                       ? "text-[var(--foreground)] font-semibold"
                       : "text-[var(--foreground-muted)] hover:text-[var(--foreground)]"
@@ -50,8 +50,10 @@ export function Header() {
                   aria-current={isActive ? "page" : undefined}
                 >
                   {item.label}
-                  {isActive && (
+                  {isActive ? (
                     <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-[var(--foreground)] rounded-full" />
+                  ) : (
+                    <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-[var(--foreground)] rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
                   )}
                 </Link>
               );
@@ -76,7 +78,7 @@ export function Header() {
               href="https://github.com/rinkudiwakar"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-[var(--radius-md)] text-[var(--foreground-muted)] hover:text-[var(--foreground)] hover:bg-[var(--background-subtle)] transition-colors"
+              className="p-2 rounded-[var(--radius-md)] text-[var(--foreground-muted)] hover:text-[var(--foreground)] hover:-translate-y-px hover:bg-[var(--background-subtle)] transition-all duration-200"
               aria-label="GitHub"
             >
               <Github className="w-[18px] h-[18px]" />
@@ -85,7 +87,7 @@ export function Header() {
               href="https://www.linkedin.com/in/rinkudiwakar/"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-[var(--radius-md)] text-[var(--foreground-muted)] hover:text-[var(--foreground)] hover:bg-[var(--background-subtle)] transition-colors"
+              className="p-2 rounded-[var(--radius-md)] text-[var(--foreground-muted)] hover:text-[var(--foreground)] hover:-translate-y-px hover:bg-[var(--background-subtle)] transition-all duration-200"
               aria-label="LinkedIn"
             >
               <Linkedin className="w-[18px] h-[18px]" />
@@ -94,14 +96,14 @@ export function Header() {
               href="https://x.com/_mrdiwakar"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-[var(--radius-md)] text-[var(--foreground-muted)] hover:text-[var(--foreground)] hover:bg-[var(--background-subtle)] transition-colors"
+              className="p-2 rounded-[var(--radius-md)] text-[var(--foreground-muted)] hover:text-[var(--foreground)] hover:-translate-y-px hover:bg-[var(--background-subtle)] transition-all duration-200"
               aria-label="X (Twitter)"
             >
               <XIcon className="w-[18px] h-[18px]" />
             </a>
             <a
               href="mailto:rinkudiwakar.dev@gmail.com"
-              className="p-2 rounded-[var(--radius-md)] text-[var(--foreground-muted)] hover:text-[var(--foreground)] hover:bg-[var(--background-subtle)] transition-colors"
+              className="p-2 rounded-[var(--radius-md)] text-[var(--foreground-muted)] hover:text-[var(--foreground)] hover:-translate-y-px hover:bg-[var(--background-subtle)] transition-all duration-200"
               aria-label="Email"
             >
               <Mail className="w-[18px] h-[18px]" />

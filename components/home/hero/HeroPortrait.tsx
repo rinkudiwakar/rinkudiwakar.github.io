@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export function HeroPortrait() {
   return (
-    <div className="hero-portrait relative w-full flex items-center justify-center lg:justify-start">
+    <div className="hero-portrait relative w-full flex items-center justify-center lg:justify-start hero-portrait-reveal">
       <div className="relative w-full max-w-[560px] sm:max-w-[620px] lg:max-w-[680px] xl:max-w-[740px]">
         <Image
           src="/images/rinku_image.png"

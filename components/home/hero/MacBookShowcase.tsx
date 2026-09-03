@@ -5,7 +5,7 @@ import { MacWindow } from "./MacWindow";
 export function MacBookShowcase() {
   return (
     <div className="macbook-showcase relative w-full select-none">
-      <div className="relative w-full laptop-floating motion-reduce:animate-none">
+      <div className="relative w-full">
         {/* Physical MacBook Pro hardware image (1624 x 969) */}
         <Image
           src="/images/mac_mockup.png"
