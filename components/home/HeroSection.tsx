@@ -19,19 +19,32 @@ export function HeroSection() {
     >
       {/* ═══════════════════════════════════════════════════════════════════
           SCREEN 1: Full-page view when user opens on PC
-          Left: Big artistic portrait of Rinku
+          Left: Big artistic portrait of Rinku + Data just below it in horizontal way
           Right: "Hey, I'm Rinku" (handwritten) + Headline + Description + CTAs
       ═══════════════════════════════════════════════════════════════════ */}
-      <div className="min-h-[calc(100vh-5rem)] flex items-center justify-center py-4 sm:py-6">
+      <div className="min-h-[calc(100vh-5rem)] flex items-center justify-center py-6 sm:py-10">
         <div className="container-hero w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center">
 
-            {/* Left: Big Portrait Photo */}
-            <div className="lg:col-span-6 flex items-center justify-center lg:justify-start">
-              <HeroPortrait />
+            {/* ── Left: Big Portrait Photo + That Data just below it in horizontal way ── */}
+            <div className="lg:col-span-6 flex flex-col items-center lg:items-start space-y-6 sm:space-y-8">
+              {/* Portrait Image */}
+              <div className="w-full flex justify-center lg:justify-start">
+                <HeroPortrait />
+              </div>
+
+              {/* That Data just below the image in horizontal way */}
+              <div className="w-full pt-1 flex items-end gap-5 xl:gap-6">
+                <div className="shrink-0 pb-1">
+                  <ScrollIndicator />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <HeroStats />
+                </div>
+              </div>
             </div>
 
-            {/* Right: What I Do */}
+            {/* ── Right: What I Do ── */}
             <div className="lg:col-span-6 flex flex-col justify-center space-y-5 sm:space-y-6 lg:space-y-7 relative lg:pl-4">
               <HeroIntro />
               <HeroHeadline />
@@ -44,40 +57,20 @@ export function HeroSection() {
       </div>
 
       {/* ═══════════════════════════════════════════════════════════════════
-          SCREEN 2: Directly Below That (Tight gap, non-overlapping annotation)
-          Left: Those Data in the centre of left + Scroll button below that
-          Right: Floating Animated MacBook with Annotation positioned safely above
+          SCREEN 2: Directly Below That
+          MacBook Showcase with "From Idea -> Code -> Product" pointing to it
       ═══════════════════════════════════════════════════════════════════ */}
-      <div className="border-t border-[var(--border-subtle)] pt-6 sm:pt-10 lg:pt-12 pb-14 sm:pb-20">
-        <div className="container-hero w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 xl:gap-12 items-center">
-
-            {/* Left Side: Those Data in the centre of left + Scroll button below */}
-            <div className="lg:col-span-5 flex flex-col items-center justify-center space-y-8 lg:space-y-10">
-              {/* Those Data in the centre of left */}
-              <div className="w-full flex justify-center">
-                <HeroStats />
-              </div>
-
-              {/* Scroll button below that */}
-              <div className="flex justify-center pt-2">
-                <ScrollIndicator />
-              </div>
+      <div className="border-t border-[var(--border-subtle)] pt-6 sm:pt-10 lg:pt-12 pb-16 sm:pb-24">
+        <div className="container-hero w-full flex justify-center lg:justify-end">
+          {/* MacBook with Annotation positioned safely above */}
+          <div className="relative pt-20 sm:pt-24 w-full max-w-[660px] xl:max-w-[720px] 2xl:max-w-[760px]">
+            {/* "From Idea -> Code -> Product" text placed safely above laptop */}
+            <div className="hidden lg:block absolute top-0 right-6 sm:right-10 xl:right-14 z-20">
+              <HeroAnnotation />
             </div>
 
-            {/* Right Side: MacBook with Annotation pointing cleanly down to it */}
-            <div className="lg:col-span-7 flex flex-col items-center lg:items-end relative pt-24 sm:pt-28">
-              {/* "From Idea -> Code -> Product" text placed safely above laptop */}
-              <div className="hidden lg:block absolute top-0 right-6 sm:right-10 xl:right-14 z-20">
-                <HeroAnnotation />
-              </div>
-
-              {/* Animated MacBook Pro Showcase */}
-              <div className="w-full max-w-[640px] xl:max-w-[700px] 2xl:max-w-[760px]">
-                <MacBookShowcase />
-              </div>
-            </div>
-
+            {/* Animated MacBook Pro Showcase */}
+            <MacBookShowcase />
           </div>
         </div>
       </div>

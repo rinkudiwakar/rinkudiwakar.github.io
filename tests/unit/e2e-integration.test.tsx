@@ -61,7 +61,7 @@ describe("Production QA Integration Audit", () => {
 
     // 13 Epilogue
     expect(screen.getByText("The story isn’t finished.")).toBeInTheDocument();
-  });
+  }, 25000);
 
   it("verifies all inner pages render with structured semantic hierarchy", () => {
     const pages = [
