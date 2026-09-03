@@ -15,35 +15,34 @@ export function PradrixMacBook({ inView = true }: PradrixMacBookProps) {
 
   // Play smoothly when in view, pause when out of view
   React.useEffect(() => {
+    // Skip in JSDOM / test runner where HTMLMediaElement methods are not implemented
+    if (
+      typeof window === "undefined" ||
+      (typeof navigator !== "undefined" && navigator.userAgent.includes("jsdom"))
+    ) {
+      return;
+    }
+
     const video = videoRef.current;
     if (!video) return;
 
     if (inView) {
       video.muted = true;
-      if (typeof video.play === "function") {
-        try {
-          const playPromise = video.play();
-          if (playPromise !== undefined) {
-            playPromise
-              .then(() => setIsPlaying(true))
-              .catch(() => {
-                // Autoplay policy fallback: ensure muted and retry
-                video.muted = true;
-                if (typeof video.play === "function") {
-                  video.play().then(() => setIsPlaying(true)).catch(() => {});
-                }
-              });
-          }
-        } catch {
-          // JSDOM / test environments
+      try {
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => setIsPlaying(true))
+            .catch(() => {
+              video.muted = true;
+              video.play().then(() => setIsPlaying(true)).catch(() => {});
+            });
         }
-      }
+      } catch {}
     } else {
-      if (typeof video.pause === "function") {
-        try {
-          video.pause();
-        } catch {}
-      }
+      try {
+        video.pause();
+      } catch {}
       setIsPlaying(false);
     }
   }, [inView]);
