@@ -20,7 +20,9 @@ describe("Hero & Now Sections", () => {
 
     expect(screen.getByText(/01 \/ CURRENTLY BUILDING/i)).toBeInTheDocument();
     expect(screen.getByText("PRADRIX")).toBeInTheDocument();
-    expect(screen.getByText(/I'm currently building Pradrix\./i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Turning high-friction operations into autonomous AI systems\./i)
+    ).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /Visit Pradrix/i })).toHaveAttribute(
       "href",
       "https://pradrix.com/"

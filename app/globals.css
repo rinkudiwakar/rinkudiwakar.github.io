@@ -361,6 +361,40 @@
   }
 }
 
+/* ── Scroll-Triggered "Built It." Annotation Animations ── */
+.built-it-wrapper .built-it-stem {
+  stroke-dasharray: 85;
+  stroke-dashoffset: 85;
+}
+
+.built-it-wrapper .built-it-head {
+  stroke-dasharray: 35;
+  stroke-dashoffset: 35;
+}
+
+.built-it-wrapper.built-it-active .built-it-text {
+  animation: built-it-text-pop 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+}
+
+.built-it-wrapper.built-it-active .built-it-stem {
+  animation: hero-draw-stem 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards;
+}
+
+.built-it-wrapper.built-it-active .built-it-head {
+  animation: hero-draw-head 0.4s cubic-bezier(0.22, 1, 0.36, 1) 1.05s forwards;
+}
+
+@keyframes built-it-text-pop {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.92) rotate(-3deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(-3deg);
+  }
+}
+
 /* Continuous Scroll Indicator: Only the Downward Arrow Bobbing (translateY 0 -> 4px -> 0) */
 .scroll-arrow-bob {
   animation: scroll-arrow-subtle-bob 1.6s ease-in-out infinite;
