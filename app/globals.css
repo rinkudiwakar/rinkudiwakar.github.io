@@ -2,13 +2,13 @@
 
 @layer base {
   :root {
-    /* Normal Mode — Pure White Editorial Foundation */
-    --background: #FFFFFF;
-    --background-subtle: #F8F8F8;
-    --background-card: #FFFFFF;
+    /* Normal Mode — Warm Light Editorial Foundation (Exact match to hero_section_ui_example.png) */
+    --background: #F6F1EB;
+    --background-subtle: #EDE7DE;
+    --background-card: #FAF7F2;
     --foreground: #141416;
-    --foreground-muted: #55575E;
-    --foreground-subtle: #8A8D96;
+    --foreground-muted: #54524F;
+    --foreground-subtle: #8A857D;
     
     /* Accent System — Editorial Blue to Purple */
     --accent: #2563EB;
@@ -22,9 +22,9 @@
     --error: #B91C1C;
 
     /* Borders and Dividers */
-    --border: #E5E5E5;
-    --border-subtle: #F0F0F0;
-    --border-strong: #D4D4D4;
+    --border: #E2DBD0;
+    --border-subtle: #EFE8DE;
+    --border-strong: #C8BFB2;
 
     /* Focus Ring */
     --ring: rgba(37, 99, 235, 0.4);
@@ -160,10 +160,10 @@
   padding-right: 1.5rem;
 }
 
-/* Hero-specific container — wider for editorial composition */
+/* Hero-specific container — wider for 16-inch laptops, desktop monitors and large screens */
 .container-hero {
   width: 100%;
-  max-width: 1360px;
+  max-width: 1440px;
   margin-left: auto;
   margin-right: auto;
   padding-left: 1.5rem;
@@ -179,8 +179,17 @@
 
 @media (min-width: 1280px) {
   .container-hero {
+    max-width: 1560px;
     padding-left: 3.5rem;
     padding-right: 3.5rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  .container-hero {
+    max-width: 1720px;
+    padding-left: 4.5rem;
+    padding-right: 4.5rem;
   }
 }
 

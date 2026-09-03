@@ -32,15 +32,15 @@ const stats: StatItem[] = [
 
 export function HeroStats() {
   return (
-    <div className="hero-stats select-none">
-      <div className="flex flex-wrap sm:flex-nowrap items-center gap-4 sm:gap-0 sm:divide-x sm:divide-[var(--border)]">
+    <div className="hero-stats select-none w-full max-w-[440px]">
+      <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:gap-x-10 sm:gap-y-8">
         {stats.map((stat) => (
           <div
             key={stat.label}
-            className="flex flex-col items-center sm:items-start px-3 sm:px-5 lg:px-6 first:pl-0 last:pr-0"
+            className="flex flex-col items-start"
           >
-            <div className="flex items-center gap-2 mb-1">
-              <span className="shrink-0" aria-hidden="true">
+            <div className="flex items-center gap-2.5 mb-1">
+              <span className="shrink-0 text-[var(--accent)]" aria-hidden="true">
                 {stat.icon}
               </span>
               <span className="text-2xl sm:text-3xl font-bold font-display text-[var(--foreground)] tracking-tight">

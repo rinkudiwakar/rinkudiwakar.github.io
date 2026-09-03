@@ -28,7 +28,7 @@ function HandDrawnUnderline() {
 
 export function HeroHeadline() {
   return (
-    <h1 className="text-[clamp(2.4rem,4.6vw,4.4rem)] font-bold tracking-tight text-[var(--foreground)] leading-[1.08] select-none">
+    <h1 className="text-[clamp(2.1rem,3.4vw,3.4rem)] font-bold tracking-tight text-[var(--foreground)] leading-[1.08] select-none">
       <span className="block">I Build Software That</span>
       <span className="block">Turns Ideas Into</span>
       <span className="relative inline-block mt-0.5">

@@ -17,56 +17,69 @@ export function HeroSection() {
       aria-label="Hero Introduction"
       className="relative w-full overflow-hidden bg-[var(--background)] transition-colors duration-200"
     >
-      <div className="container-hero relative pt-4 sm:pt-6 md:pt-8 pb-16 sm:pb-20 lg:pb-24">
-        {/* ── TOP HERO ROW: Big Photo on Left + Intro, Headline, Description, Buttons on Right ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-12 items-center">
+      {/* ═══════════════════════════════════════════════════════════════════
+          SCREEN 1: Whole page of PC when user opens it
+          Left: Big artistic portrait of Rinku
+          Right: "Hey, I'm Rinku" (handwritten) + Headline + Description + CTAs
+      ═══════════════════════════════════════════════════════════════════ */}
+      <div className="min-h-[calc(100vh-4.5rem)] flex items-center justify-center">
+        <div className="container-hero w-full py-8 sm:py-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center">
 
-          {/* ── LEFT: Big Portrait Photo (Extends down to View My Work button) ── */}
-          <div className="lg:col-span-6 xl:col-span-6 flex items-center justify-center lg:justify-start">
-            <HeroPortrait />
-          </div>
-
-          {/* ── RIGHT: What I Do (Intro + Headline + Description + CTAs) ── */}
-          <div className="lg:col-span-6 xl:col-span-6 flex flex-col justify-center space-y-6 sm:space-y-7 relative lg:pl-2">
-            {/* Intro ("Hey, I'm Rinku") */}
-            <HeroIntro />
-
-            {/* Headline ("I Build Software That Turns Ideas Into Real Products.") */}
-            <HeroHeadline />
-
-            {/* Description */}
-            <HeroDescription />
-
-            {/* CTA Buttons */}
-            <HeroActions />
-
-            {/* Handwritten Annotation */}
-            <div className="hidden 2xl:block absolute -right-6 top-[280px]">
-              <HeroAnnotation />
-            </div>
-          </div>
-        </div>
-
-        {/* ── BELOW THAT: Scroll Indicator on Left + Credibility Stats Data ── */}
-        <div className="pt-8 sm:pt-12 pb-8 border-t border-[var(--border-subtle)] mt-8 sm:mt-10 lg:mt-12">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            {/* Left: Scroll to explore / know more (kept in same place) */}
-            <div className="shrink-0">
-              <ScrollIndicator />
+            {/* Left: Big Portrait Photo */}
+            <div className="lg:col-span-6 flex items-center justify-center lg:justify-start">
+              <HeroPortrait />
             </div>
 
-            {/* Credibility Stats row */}
-            <div className="shrink-0">
-              <HeroStats />
+            {/* Right: What I Do */}
+            <div className="lg:col-span-6 flex flex-col justify-center space-y-5 sm:space-y-6 lg:space-y-7 relative lg:pl-4">
+              <HeroIntro />
+              <HeroHeadline />
+              <HeroDescription />
+              <HeroActions />
             </div>
+
           </div>
         </div>
+      </div>
 
-        {/* ── MacBook Showcase: What I'm Best At (Coded Capabilities) ── */}
-        <div className="pt-6 sm:pt-8 lg:pt-10 max-w-[840px] mx-auto">
-          <MacBookShowcase />
+      {/* ═══════════════════════════════════════════════════════════════════
+          SCREEN 2: Directly Below That
+          Left: Those Data in the centre of left + Scroll Button below that
+          Right: MacBook with "From Idea -> Code -> Product" pointing to it
+      ═══════════════════════════════════════════════════════════════════ */}
+      <div className="min-h-screen flex items-center justify-center border-t border-[var(--border-subtle)] py-16 sm:py-20 lg:py-24">
+        <div className="container-hero w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 xl:gap-14 items-center">
+
+            {/* Left Side: Those Data in the centre of left + Scroll button below */}
+            <div className="lg:col-span-5 flex flex-col items-center justify-center space-y-10 lg:space-y-12">
+              {/* Those Data in the centre of left */}
+              <div className="w-full flex justify-center">
+                <HeroStats />
+              </div>
+
+              {/* Scroll button below that */}
+              <div className="flex justify-center pt-2">
+                <ScrollIndicator />
+              </div>
+            </div>
+
+            {/* Right Side: MacBook on the right side with annotation pointing to it */}
+            <div className="lg:col-span-7 flex flex-col items-center lg:items-end relative">
+              {/* "From Idea -> Code -> Product" text pointing to MacBook */}
+              <div className="hidden lg:block absolute -top-14 sm:-top-16 right-4 sm:right-8 xl:right-12 z-20">
+                <HeroAnnotation />
+              </div>
+
+              {/* MacBook Pro Showcase */}
+              <div className="w-full max-w-[640px] xl:max-w-[700px] 2xl:max-w-[760px]">
+                <MacBookShowcase />
+              </div>
+            </div>
+
+          </div>
         </div>
-
       </div>
 
       {/* Subtle bottom border */}
