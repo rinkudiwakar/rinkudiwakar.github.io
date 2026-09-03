@@ -41,7 +41,7 @@ export function CurrentlyBuildingSection() {
       ref={sectionRef}
       id="currently-building"
       aria-label="01 Currently Building — Pradrix"
-      className="relative w-full pt-4 sm:pt-6 md:pt-8 pb-14 sm:pb-18 lg:pb-20 border-b border-[var(--border)] bg-[var(--background)] transition-colors duration-200 overflow-hidden"
+      className="relative w-full pt-4 sm:pt-6 md:pt-8 pb-8 sm:pb-10 lg:pb-12 border-b border-[var(--border)] bg-[var(--background)] transition-colors duration-200 overflow-hidden"
     >
       <div className="container-hero flex flex-col items-center space-y-6 sm:space-y-8 lg:space-y-9">
         
