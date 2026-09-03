@@ -3,7 +3,10 @@ import * as React from "react";
 export function HeroIntro() {
   return (
     <div className="flex items-center gap-3 -rotate-2 select-none">
-      <span className="font-handwritten text-3xl sm:text-4xl text-[var(--foreground)] tracking-wide font-medium">
+      <span
+        className="font-handwritten text-3xl sm:text-4xl text-[var(--foreground)] tracking-wide font-medium"
+        style={{ fontFamily: "'Caveat', 'Kalam', 'Segoe Print', cursive" }}
+      >
         Hey, I&apos;m Rinku
       </span>
 

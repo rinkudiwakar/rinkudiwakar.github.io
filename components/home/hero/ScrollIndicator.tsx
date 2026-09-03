@@ -3,9 +3,12 @@ import { ArrowDown } from "lucide-react";
 
 export function ScrollIndicator() {
   return (
-    <div className="hidden lg:flex flex-col items-start gap-2 select-none">
+    <div className="flex flex-col items-start gap-2 select-none">
       <div className="flex flex-col items-center gap-1.5 -rotate-3 select-none">
-        <span className="font-handwritten text-base text-[var(--foreground)] tracking-wide">
+        <span
+          className="font-handwritten text-base sm:text-lg text-[var(--foreground)] tracking-wide"
+          style={{ fontFamily: "'Caveat', 'Kalam', 'Segoe Print', cursive" }}
+        >
           Scroll to explore
         </span>
         <div className="w-px h-5 bg-[var(--foreground)] opacity-60" />

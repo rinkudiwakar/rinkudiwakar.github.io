@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Kalam:wght@400;700&display=swap');
 @import "tailwindcss";
 
 @layer base {
@@ -132,7 +133,7 @@
 }
 
 .font-handwritten {
-  font-family: var(--font-handwritten), "Caveat", cursive;
+  font-family: 'Caveat', 'Kalam', var(--font-handwritten), 'Segoe Print', cursive !important;
 }
 
 .container-editorial {
@@ -262,6 +263,53 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Laptop floating and interactive animations */
+.laptop-floating {
+  animation: laptop-float 6s ease-in-out infinite;
+}
+
+@keyframes laptop-float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes laptop-pulse-dot {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.85);
+  }
+}
+
+.laptop-pulse-dot {
+  animation: laptop-pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes laptop-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.laptop-shimmer-text {
+  background: linear-gradient(90deg, #38BDF8 0%, #A855F7 50%, #38BDF8 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: laptop-shimmer 4s linear infinite;
 }
 
 /* Reduced motion overrides for hero */
