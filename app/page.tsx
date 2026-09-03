@@ -1,6 +1,7 @@
 import { Arrival } from "@/components/home/Arrival";
 import { HeroSection } from "@/components/home/HeroSection";
 import { CurrentlyBuildingSection } from "@/components/home/CurrentlyBuildingSection";
+import { AboutSection } from "@/components/home/AboutSection";
 import { NowSection } from "@/components/home/NowSection";
 import { OriginSection } from "@/components/home/OriginSection";
 import { JourneySection } from "@/components/home/JourneySection";
@@ -23,6 +24,9 @@ export default function HomePage() {
 
         {/* 01.5 / Currently Building: Pradrix Storytelling & Product Showcase */}
         <CurrentlyBuildingSection />
+
+        {/* 02 / About Me: Hardware to Software Story */}
+        <AboutSection />
 
         {/* 02 Now Section */}
         <NowSection />
