@@ -6,5 +6,5 @@ export const PRADRIX_CONFIG = {
   videoSrc: "/videos/pradrix_demo.mp4",
   description:
     "An AI Transformation Partner helping businesses identify, build, and deploy production-ready AI systems through consulting, strategic automation, and custom AI engineering.",
-  descriptors: ["AI", "Software", "Product", "Systems"],
+  descriptors: ["AI", "Automation", "Software", "Systems"],
 } as const;
