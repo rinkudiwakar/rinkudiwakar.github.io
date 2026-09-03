@@ -35,7 +35,7 @@ export function AboutSection() {
       ref={sectionRef}
       id="about"
       aria-label="01 About Me — Hardware to Software Story"
-      className="relative w-full pt-10 sm:pt-14 lg:pt-16 pb-12 sm:pb-16 lg:pb-20 border-b border-[var(--border)] bg-[var(--background)] transition-colors duration-200 overflow-hidden scroll-mt-20"
+      className="relative w-full pt-8 sm:pt-12 lg:pt-14 pb-8 sm:pb-10 lg:pb-12 border-b border-[var(--border)] bg-[var(--background)] transition-colors duration-200 overflow-hidden scroll-mt-20"
     >
       {/* ── VERTICAL PAGINATION DOTS (AS SEEN ON FAR RIGHT IN REFERENCE UI) ── */}
       <div className="hidden xl:flex flex-col items-center gap-2.5 absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none select-none z-20">
@@ -46,13 +46,13 @@ export function AboutSection() {
         <div className="w-2 h-2 rounded-full border border-[var(--border-strong)]" />
       </div>
 
-      <div className="container-hero flex flex-col space-y-10 sm:space-y-12 lg:space-y-14">
+      <div className="container-hero flex flex-col space-y-8 sm:space-y-10 lg:space-y-11">
         
         {/* ── 1. UPPER BLOCK: TWO-COLUMN EDITORIAL OPENING WITH PROFESSIONAL GAP & SCALE ── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-14 items-center">
           
-          {/* LEFT: Section Label, Headline, Narrative, and 3-Col Metadata with Enhanced Presence */}
-          <div className="lg:col-span-7 flex flex-col space-y-6 max-w-2xl">
+          {/* LEFT: Section Label, Headline, Narrative, and 3-Col Metadata */}
+          <div className="lg:col-span-7 flex flex-col space-y-5 sm:space-y-6 max-w-2xl">
             
             {/* 01 / ABOUT ME Label with Blue Indicator */}
             <div
@@ -105,52 +105,52 @@ export function AboutSection() {
               </p>
             </div>
 
-            {/* 3-Column Metadata Row with Enhanced Icons & Professional Breathing Room */}
+            {/* 3-Column Metadata Row inside a frosted rounded rectangular box */}
             <div
-              className={`pt-6 border-t border-[var(--border)] grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6 lg:gap-7 transition-all duration-500 delay-400 ease-out ${
+              className={`p-3.5 sm:p-4 rounded-xl bg-[var(--background-card)] border border-[var(--border)] shadow-xs grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5 lg:gap-6 transition-all duration-500 delay-400 ease-out ${
                 hasEntered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
               }`}
             >
               {/* Col 1: Final Year with Graduation Cap */}
-              <div className="flex items-center gap-3.5">
-                <div className="w-10 h-10 rounded-lg bg-[var(--background-subtle)] border border-[var(--border)] flex items-center justify-center shrink-0">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-lg bg-[var(--background-subtle)] border border-[var(--border)] flex items-center justify-center shrink-0">
                   <GraduationCap className="w-5 h-5 text-[#2563EB]" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-[10.5px] font-mono uppercase tracking-wider text-[var(--foreground-subtle)]">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-[var(--foreground-subtle)]">
                     FINAL YEAR
                   </span>
-                  <span className="text-[13px] sm:text-sm font-bold text-[var(--foreground)]">
+                  <span className="text-[12.5px] sm:text-xs md:text-[13px] font-bold text-[var(--foreground)]">
                     B.Tech — Electrical Eng.
                   </span>
                 </div>
               </div>
 
               {/* Col 2: NIT Jalandhar with Classical Building Icon */}
-              <div className="flex items-center gap-3.5">
-                <div className="w-10 h-10 rounded-lg bg-[var(--background-subtle)] border border-[var(--border)] flex items-center justify-center shrink-0">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-lg bg-[var(--background-subtle)] border border-[var(--border)] flex items-center justify-center shrink-0">
                   <Landmark className="w-5 h-5 text-[#2563EB]" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-[10.5px] font-mono uppercase tracking-wider text-[var(--foreground-subtle)]">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-[var(--foreground-subtle)]">
                     NIT JALANDHAR
                   </span>
-                  <span className="text-[13px] sm:text-sm font-bold text-[var(--foreground)]">
+                  <span className="text-[12.5px] sm:text-xs md:text-[13px] font-bold text-[var(--foreground)]">
                     2023 — 2027
                   </span>
                 </div>
               </div>
 
               {/* Col 3: Focus with Microchip CPU Icon */}
-              <div className="flex items-center gap-3.5">
-                <div className="w-10 h-10 rounded-lg bg-[var(--background-subtle)] border border-[var(--border)] flex items-center justify-center shrink-0">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-lg bg-[var(--background-subtle)] border border-[var(--border)] flex items-center justify-center shrink-0">
                   <Cpu className="w-5 h-5 text-[#2563EB]" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-[10.5px] font-mono uppercase tracking-wider text-[var(--foreground-subtle)]">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-[var(--foreground-subtle)]">
                     FOCUS
                   </span>
-                  <span className="text-[13px] sm:text-sm font-bold text-[var(--foreground)]">
+                  <span className="text-[12.5px] sm:text-xs md:text-[13px] font-bold text-[var(--foreground)]">
                     Software · AI · Embedded
                   </span>
                 </div>
@@ -166,18 +166,18 @@ export function AboutSection() {
 
         </div>
 
-        {/* ── 2. BOTTOM BLOCK: HORIZONTAL SCHEMATIC CIRCUIT BAR ── */}
+        {/* ── 2. BOTTOM BLOCK: HORIZONTAL SCHEMATIC CIRCUIT BAR & CLIMAX ── */}
         <div
-          className={`w-full max-w-5xl mx-auto flex flex-col items-center text-center space-y-6 pt-6 border-t border-[var(--border)] transition-all duration-700 delay-300 ease-out ${
+          className={`w-full max-w-5xl mx-auto flex flex-col items-center text-center space-y-5 pt-4 border-t border-[var(--border)] transition-all duration-700 delay-300 ease-out ${
             hasEntered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
           }`}
         >
-          {/* Circuit Bar: Glowing Dots + Solid/Dashed Segments + Card Icons */}
+          {/* Circuit Bar: Glowing Dots + Continuous Blue Segments + High-Contrast Card Icons */}
           <AboutJourneyTrace isActive={hasEntered} />
 
           {/* "WHERE THEY MEET" Statement — Visual Climax */}
-          <div className="space-y-1.5 max-w-xl pt-2">
-            <span className="inline-block px-2.5 py-0.5 rounded-full font-mono text-[9.5px] sm:text-[10px] tracking-[0.2em] bg-[var(--background-subtle)] border border-[var(--border)] text-[var(--foreground-subtle)] uppercase mb-1">
+          <div className="space-y-1.5 max-w-xl pt-1">
+            <span className="inline-block px-2.5 py-0.5 rounded-full font-mono text-[9.5px] sm:text-[10px] tracking-[0.2em] bg-[var(--background-subtle)] border border-[var(--border)] text-[var(--foreground-subtle)] uppercase mb-0.5">
               WHERE THEY MEET
             </span>
             <p className="text-base sm:text-lg md:text-xl font-medium text-[var(--foreground)] leading-snug">
@@ -189,7 +189,7 @@ export function AboutSection() {
           </div>
 
           {/* CTA Group: "Want to know the rest of the story?" + "More About Me →" */}
-          <div className="flex flex-col items-center space-y-2 pt-1">
+          <div className="flex flex-col items-center space-y-1.5 pt-0.5">
             <span className="text-xs text-[var(--foreground-muted)] font-mono">
               Want to know the rest of the story?
             </span>
