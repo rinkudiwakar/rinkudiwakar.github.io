@@ -2,6 +2,31 @@ import { Project } from "@/types/content";
 
 export const projectsData: Project[] = [
   {
+    slug: "messos",
+    title: "MessOS",
+    tagline: "A software system designed to make hostel mess operations simpler, more transparent and easier to manage.",
+    status: "completed",
+    categories: ["Product", "Full Stack", "SaaS"],
+    featured: true,
+    problem:
+      "Hostel mess operations suffer from manual attendance tracking, untracked dietary wastes, chaotic meal complaints, and non-transparent billing across managers, munshis, and students.",
+    idea: "A unified B2B SaaS platform including Mess Manager, Munshi, and Clerk portals for real-time meal counts, transparent accounting, feedback loops, and automated attendance.",
+    story:
+      "Engineered to transform high-friction physical hostel operations into an intuitive digital experience. Features dedicated role-based portals for mess administration, staff management, student attendance scanning, and billing analytics.",
+    role: "Full Stack Architect & Lead Developer.",
+    outcome:
+      "Integrated operational platform with automated meal tracking, inventory visibility, and real-time attendance telemetry.",
+    lessons: [
+      "Operational software succeeds by reducing daily friction for ground operators, not just by showing fancy charts.",
+      "Clear role-based access control and intuitive workflows are vital when non-technical staff use digital portals daily.",
+    ],
+    technologies: ["Next.js", "Supabase", "PostgreSQL", "Tailwind CSS", "TypeScript"],
+    architecture:
+      "Manager/Staff/Clerk Portals → Next.js App Router → Supabase Auth & RLS → PostgreSQL Database → Real-time State & Analytics",
+    repositoryUrl: "https://github.com/rinkudiwakar/MessOS",
+    proofIds: ["proof-messos-repo"],
+  },
+  {
     slug: "kavach",
     title: "Kavach",
     tagline: "AI-powered voice authentication and physical smart access system.",
@@ -37,7 +62,7 @@ export const projectsData: Project[] = [
     ],
     architecture:
       "Microphone Array → WebRTC VAD → Vosk Keyword Match → Resemblyzer Voiceprint Model → Flask REST API → MongoDB → Raspberry Pi Serial → Arduino Microcontroller → L298N Driver → Motor Actuator",
-    repositoryUrl: "https://github.com/rinkudiwakar",
+    repositoryUrl: "https://github.com/rinkudiwakar/Kavach",
     proofIds: ["proof-kavach-repo", "proof-kavach-nitj"],
   },
   {
@@ -105,7 +130,7 @@ export const projectsData: Project[] = [
     ],
     architecture:
       "Resume PDF Parser → Text Chunking & Entity Extraction → Semantic Vector Embedding → Taxonomy Matcher → RAG Gap Analyzer → Interactive Remediation UI",
-    repositoryUrl: "https://github.com/rinkudiwakar",
+    repositoryUrl: "https://github.com/rinkudiwakar/SkillGap-AI",
     proofIds: ["proof-skillgap-repo"],
   },
   {
@@ -141,7 +166,7 @@ export const projectsData: Project[] = [
     ],
     architecture:
       "Dataset Versioning (DVC) → Training & Artifact Registry (MLflow) → Docker Containerization → GitHub Actions CI/CD → Amazon EKS Cluster → Prometheus/Grafana Telemetry",
-    repositoryUrl: "https://github.com/rinkudiwakar",
+    repositoryUrl: "https://github.com/rinkudiwakar/Movie-Sentiment-Prediction",
     proofIds: ["proof-moviesentiment-repo"],
   },
   {

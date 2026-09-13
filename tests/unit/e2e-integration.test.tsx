@@ -34,6 +34,14 @@ describe("Production QA Integration Audit", () => {
     expect(screen.getByText(/01 \/ ABOUT ME/i)).toBeInTheDocument();
     expect(screen.getByText(/I started with/i)).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /More About Me/i })).toBeInTheDocument();
+
+    // 03 Selected Work Section
+    expect(screen.getByText(/02 \/ SELECTED WORK/i)).toBeInTheDocument();
+    expect(screen.getByText(/Things I've built\./i)).toBeInTheDocument();
+    expect(screen.getByText("MessOS")).toBeInTheDocument();
+    expect(screen.getByText("SkillGap AI")).toBeInTheDocument();
+    expect(screen.getByText("MovieSentiment")).toBeInTheDocument();
+    expect(screen.getByText("Kavach")).toBeInTheDocument();
   }, 25000);
 
   it("verifies all inner pages render with structured semantic hierarchy", () => {
